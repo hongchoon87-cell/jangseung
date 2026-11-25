@@ -15,10 +15,10 @@ A *jangseung* is the carved guardian post at the entrance of a Korean village.
 | Part | State |
 |---|---|
 | `AgentVault` contract | Written. 50 unit tests and 10 tests against the real HSKSwap pools on mainnet forks pass. Two faults the backtest found are fixed (see [Backtest](#backtest)). |
-| Agent pipeline (rules, gate, execution) | Written. 68 unit tests pass. Ran end to end on a local mainnet fork: buys, a stop-loss after a 10% sell-off, limits and settings. |
+| Agent pipeline (rules, gate, execution) | Written. 70 unit tests pass. Ran end to end on a local mainnet fork: buys, a stop-loss after a 10% sell-off, limits and settings. |
 | Testnet demo | **Deployed on the HSK Chain testnet on 2026-11-25**, source verified, keeper and agent running in live mode with test tokens. A fall we staged in the demo pool the same day left the agent's buy and the vault's stop-loss on-chain. Rehearsed first on a local fork of the testnet: demo market, vault, deposit, a buy, a staged 10% fall, the stop-loss. Addresses and transactions in [Run it on the HSK Chain testnet](#run-it-on-the-hsk-chain-testnet). |
 | Dashboard and chat | Written. Checked in a browser against the fork. |
-| Claude judgment and chat | Written and type-checked against the SDK. **Not yet run against the API** (no key in the development environment). |
+| Claude judgment and chat | **Run against the API on the testnet on 2026-11-25** with `claude-opus-5-5`: three judgments (a buy cut to 40% of the proposed size, two take-profit approvals) and four chat requests. See [Claude on the testnet](#claude-on-the-testnet-2026-11-25). The backtest has not been repeated with Claude in the loop. |
 | Mainnet deployment | **Not done; planned for after the results.** The submission runs on the testnet, which the hackathon Q&A accepts, and on 2026-11-25 the organisers answered that the mainnet deployment can follow once a project is among the winners. The deployment was rehearsed on a mainnet fork and the scripts are ready; the owner's wallet needs about 3 HSK for gas. |
 | Backtest with baselines | Done, 75 tests. **It does not show a profit**: +1.53% on the period used to choose the configuration, −0.42% on the period held back. Full write-up in [docs/백테스트_결과.md](docs/백테스트_결과.md) (Korean). |
 
@@ -272,6 +272,47 @@ The keeper has since followed the mainnet pool on its own. At 12:18:30 it moved 
 pool from 0.080821 to 0.080799 (−2.6 bps) after the price on mainnet changed
 ([`0x5d587962…`](https://testnet-explorer.hskchain.net/tx/0x5d5879628bf4fac288b1c868f4997318945a8bd9eb9d2ec91d12a9b08ef0891b)).
 
+### Claude on the testnet, 2026-11-25
+
+That evening the agent was restarted with a Claude API key (`claude-opus-5-5`, effort
+medium) and we staged a 2.4% dip, again with the keeper stopped. Times are KST.
+
+| Time | Who | What | Transaction |
+|---|---|---|---|
+| 20:52:54 | market key, staged | Sold 63,638 test WHSK: price 0.080799 → 0.078860 (−2.40%), 254 bps under the exchanges | [`0x9f24f5ad…`](https://testnet-explorer.hskchain.net/tx/0x9f24f5adefc182e70d7be2eeda2720167c5f02fe20944d163481b80630b22256) |
+| 20:53:10 | agent, through the vault | All 11 gate checks passed (net edge 186 bps). Claude cut the buy to 40%: 19.89 test USDT for 251.51 test WHSK | [`0x56b7a138…`](https://testnet-explorer.hskchain.net/tx/0x56b7a13876ac3c3082d9abd4d16539c2a9c0977e7d822509ad86f7077541a421) |
+| 20:53:40 | market key, staged | Pool returned to the mainnet pool's price, 0.080793 | [`0xfc1d3da5…`](https://testnet-explorer.hskchain.net/tx/0xfc1d3da5190b0a37f37a7b3b71e34d3f8fb1eb85ec30eb8bb204ba812a6270a4) |
+| 20:58:32 | agent, through the vault | Take-profit at +201 bps, approved by Claude. **Reverted, out of gas** (see below) | [`0xc94271fb…`](https://testnet-explorer.hskchain.net/tx/0xc94271fb991ac5095801859fbca8b20779a079e5dec5c3fd02b304fcccba8af3) |
+| 21:04:44 | agent, through the vault | Take-profit at +214 bps, approved by Claude: 251.51 test WHSK sold for 20.26 test USDT, a gain of 0.36 | [`0x88ff25b7…`](https://testnet-explorer.hskchain.net/tx/0x88ff25b79e5f474e2ca3963f98c1f87fd87a37d2d72ceb51c5ea2ea80a0e114e) |
+
+Claude's reason for the smaller buy, as stored in the decision record whose hash is in the
+transaction:
+
+> The gap is real and the exchanges are steady and slightly rising (+48 bps over the last
+> hour, venues only 20 bps apart), so the 186 bps net edge is credible and the data is clean.
+> But the same WHSK basis entry about 10 hours ago, with a 235 bps gap, hit the hard stop
+> within six minutes for -5.27 USDT. The DEX has also just dropped about 209 bps below its
+> 5-minute TWAP, which points to active selling in a thin pool that could push the gap wider
+> before it closes. I am taking the trade at 40% size to keep exposure to a repeat of that
+> loss small.
+
+The first sale ran out of gas at exactly its estimated limit of 193,359. In the block it
+landed in, the same call needed 221,303. The vault's TWAP lookup searches the pool's price
+history, about 28,000 gas, unless the newest entry is older than the window, and that
+changed 8 seconds after the sale's block. The estimate matches the later, cheaper case: on
+this testnet a pending call sees a block time 12 seconds past the latest block. The
+executor now sends 1.5 times the estimate plus 50,000 gas (`gasLimitFor` in
+`agent/src/executor.ts`); gas that is not used is not charged. None of the fork runs had
+hit this.
+
+The chat was asked four things in Korean and answered each from the live state: a status
+summary; a smaller buy size, which it applied (5% to 3%); a buy size of 50%, which it set
+to the vault's 10% limit, explaining that more needs an on-chain policy change signed with
+the owner's key; and a direct order to buy, which it declined, pointing to the pipeline.
+
+A judgment took 3 to 10 seconds and 2,700 to 2,900 input tokens, about 0.02 USD. The 0.36
+gained comes from the dip we staged, like the loss before it.
+
 To set up a demo of your own:
 
 ```bash
@@ -281,6 +322,8 @@ npm run testnet:keys              # three testnet-only keys in .env.testnet; pri
 #                                   a day brought 0.1 HSK, the setup needs about 0.015)
 npm run testnet:setup             # demo market, vault, deposit of 1,000 test USDT
 npm run testnet:verify            # publish the sources on Sourcify and the explorer
+npm run agent:set-api-key         # optional: Claude judgment and chat. Asks for the key at a
+#                                   hidden prompt and stores it in .env.testnet
 npm run testnet:keeper            # terminal 1: keep the demo pool at the mainnet price
 npm run agent:testnet             # terminal 2: the agent, dashboard on http://127.0.0.1:8788
 npm run testnet:move -- dump 10   # stage a 10% fall (stop the keeper first, or it undoes it)
@@ -351,6 +394,8 @@ to 320,000 gas and a stop-loss sale about 223,000.
 
 - No profit is promised. The backtest shows none, and a few days of small live trades
   would not prove anything either.
+- What Claude's judgment adds to results is not measured: the backtest has not been
+  repeated with Claude in the loop, and three live judgments prove only that the step works.
 - The strategy is long-only and unhedged, so it carries the direction of HSK's price.
 - If the pool's liquidity provider withdraws, a position cannot be sold until liquidity
   returns. It happened for six days in October 2026.
@@ -358,7 +403,7 @@ to 320,000 gas and a stop-loss sale about 223,000.
 - The vault is not on mainnet yet. What has run on-chain so far ran on the testnet and on
   forks of mainnet.
 - The testnet demo trades test tokens in a pool that only our keeper and our agent trade in.
-  The buy and the stop-loss recorded there on 2026-11-25 followed price moves we staged.
+  The trades recorded there on 2026-11-25 followed price moves we staged.
   It was rehearsed on a local fork of the testnet and then deployed; there is no
   pinned-block Solidity test against the testnet the way there is for mainnet.
 - Closing a large position by stop-loss takes several calls, about one TWAP window apart
