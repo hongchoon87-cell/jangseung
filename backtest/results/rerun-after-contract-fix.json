@@ -1,0 +1,20 @@
+{
+  "rerunAt": "2026-11-24T13:03:33Z",
+  "why": "The vault contract was changed after the report period had been run: the stop-loss and the breaker's flatten now take an amount and can sell a position in parts, and listing an asset enlarges a pool's price history that is too short. The vault copy and the pipeline were changed to match, and the gas charged for a stop-loss sale was raised to what the new one measured on a fork. The results had to be produced again to stay tied to the code.",
+  "codeSha256": {
+    "frozen": "4f3a86caa2e9f431002d02da7091f941b86096f1a99d023206a8f3b702b1a8c5",
+    "afterTheContractFix": "68726898a2b2d69febbb393bd41795ebdd8a324f7e03619415b05db6c0d87411",
+    "now": "see codeSha256 in development/index.json and report/index.json. It changes whenever the agent's code does (for instance 55aeba40... once the hash was narrowed to the files a result depends on); each time both periods are run again and compared with results/frozen/."
+  },
+  "whatCouldHaveChanged": "Only a run in which the vault's own stop-loss is attempted: it now sells what fits instead of everything, and is retried on every tick instead of every ten minutes.",
+  "result": "All 13 experiments in both periods, and the three baselines, are byte-identical to the frozen run (kept in results/frozen/). In this history the agent's own exits always acted before the vault's stop-loss was reached.",
+  "note": "This is a second run of the report period. Nothing was retuned between the two runs, and no number changed.",
+  "laterReruns": [
+    {
+      "rerunAt": "2026-11-24T16:04:48Z",
+      "why": "The agent's settings were split into mainnet and testnet (agent/src/networks.ts, config.ts, chain.ts) and the market reader can be told to assume a gas price. None of this is meant to change a mainnet decision, so both periods were run again to check.",
+      "codeSha256": "5781225a83844ac5d6cfb75c146cd5013064b1a60566d9bb8edfa729c7904aaa",
+      "result": "In both periods every field of index.json equals the frozen run except generatedAt, codeSha256 and costs. The 13 experiment summaries and the three baselines are identical. costs differs only by the stop-loss gas entry (225,000) that the contract fix above added."
+    }
+  ]
+}

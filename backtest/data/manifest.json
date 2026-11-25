@@ -1,0 +1,44 @@
+{
+  "blocks": {
+    "from": 17714162,
+    "to": 30565632
+  },
+  "files": {
+    "pool": {
+      "file": "pool-whsk.jsonl.gz",
+      "source": "https://mainnet.hsk.xyz eth_getLogs, pool 0x4ff515761864e7838B0AdB8b5b2B8B7A068905dC, blocks 17714162 to 30565632",
+      "fetchedAt": "2026-11-24T11:35:04.776Z",
+      "rows": 26432,
+      "first": "2026-01-30T12:17:39.000Z",
+      "last": "2026-11-23T23:56:45.000Z",
+      "sha256": "c0bdb82400ce4da0e3b7aead8b9dc213ca1a3a63f5e02139351eff138110b320"
+    },
+    "mexc": {
+      "file": "candles-mexc.csv.gz",
+      "source": "https://api.mexc.com/api/v3/klines?symbol=HSKUSDT&interval=5m",
+      "fetchedAt": "2026-11-24T11:36:07.135Z",
+      "rows": 85677,
+      "first": "2026-01-30T12:15:00.000Z",
+      "last": "2026-11-23T23:55:00.000Z",
+      "sha256": "ad41054dfe3f4eabf23396487aff1362f51dc53aeaf107fadd92541c9a3c2335"
+    },
+    "hashkey": {
+      "file": "candles-hashkey.csv.gz",
+      "source": "https://api-glb.hashkey.com/quote/v1/klines?symbol=HSKUSDT&interval=5m",
+      "fetchedAt": "2026-11-24T11:36:45.452Z",
+      "rows": 85677,
+      "first": "2026-01-30T12:15:00.000Z",
+      "last": "2026-11-23T23:55:00.000Z",
+      "sha256": "ed25d7482b86e1a1e9f15bbf6c29bc8f0a1b575c517ae4ab9fdb525a8d7796c4"
+    },
+    "lbank": {
+      "file": "candles-lbank.csv.gz",
+      "source": "https://api.lbkex.com/v2/kline.do?symbol=hsk_usdt&type=minute5",
+      "fetchedAt": "2026-11-24T11:37:17.251Z",
+      "rows": 85677,
+      "first": "2026-01-30T12:15:00.000Z",
+      "last": "2026-11-23T23:55:00.000Z",
+      "sha256": "75f2c6bb0e61fc13af962596555358db51d2677da8325d9e1273aa862ab13bf6"
+    }
+  }
+}

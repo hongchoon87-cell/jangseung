@@ -1,0 +1,630 @@
+{
+  "experiment": {
+    "id": "ref-minus-10",
+    "note": "`sizing` with every exchange price 10 bps lower.",
+    "arm": "gate+sizing",
+    "referenceShiftBps": -10
+  },
+  "summary": {
+    "label": "ref-minus-10",
+    "arm": "gate+sizing",
+    "from": "2026-04-22T00:00:00.000Z",
+    "to": "2026-09-01T00:00:00.000Z",
+    "days": 132,
+    "depositUsdt": 1000,
+    "finalUsdt": 1006.3914570745236,
+    "returnPct": 0.6391457074523599,
+    "returnBeforeGasPct": 0.7482588000000012,
+    "gasUsdt": 1.091130925476375,
+    "poolFeesUsdt": 10.799563660444333,
+    "maxDrawdownPct": 0.4760434369277391,
+    "maxDrawdownLiquidPct": 0.5371486369277363,
+    "timeInMarketPct": 6.139520202020202,
+    "meanExposurePct": 0.49888621674172107,
+    "executions": {
+      "basis-entry:sent": 41,
+      "basis-exit:sent": 3,
+      "trend-exit:sent": 9,
+      "take-profit:sent": 7,
+      "trend-entry:sent": 3
+    },
+    "transactions": 63,
+    "revertedTransactions": 0,
+    "roundTrips": {
+      "count": 19,
+      "wins": 8,
+      "pnlUsdt": 7.645289999999953,
+      "meanBps": 50.671516792502686,
+      "medianBps": -39.666612374934516,
+      "worstBps": -119.89178917588106,
+      "bestBps": 414.21412982266537,
+      "meanHoldHours": 9.74561403508772
+    },
+    "byEntryKind": {
+      "basis-entry": {
+        "count": 18,
+        "wins": 8,
+        "pnlUsdt": 7.856169999999956,
+        "meanBps": 56.59622048448172,
+        "medianBps": -37.3350007826867,
+        "worstBps": -119.89178917588106,
+        "bestBps": 414.21412982266537,
+        "meanHoldHours": 9.50925925925926
+      },
+      "trend-entry": {
+        "count": 1,
+        "wins": 0,
+        "pnlUsdt": -0.21088000000000306,
+        "meanBps": -55.97314966311995,
+        "medianBps": -55.97314966311995,
+        "worstBps": -55.97314966311995,
+        "bestBps": -55.97314966311995,
+        "meanHoldHours": 14
+      }
+    },
+    "byExitKind": {
+      "basis-exit": {
+        "count": 3,
+        "wins": 0,
+        "pnlUsdt": -0.6708209999999966,
+        "meanBps": -56.74159586978663,
+        "medianBps": -59.88619208666779,
+        "worstBps": -70.67198314775757,
+        "bestBps": -39.666612374934516,
+        "meanHoldHours": 28.25
+      },
+      "take-profit": {
+        "count": 7,
+        "wins": 7,
+        "pnlUsdt": 12.968417999999986,
+        "meanBps": 218.97732025694685,
+        "medianBps": 185.30167086419968,
+        "worstBps": 148.73183889495766,
+        "bestBps": 414.21412982266537,
+        "meanHoldHours": 4.69047619047619
+      },
+      "trend-exit": {
+        "count": 9,
+        "wins": 1,
+        "pnlUsdt": -4.652307000000036,
+        "meanBps": -44.428626125746376,
+        "medianBps": -59.82049119158339,
+        "worstBps": -119.89178917588106,
+        "bestBps": 110.22814990567342,
+        "meanHoldHours": 7.50925925925926
+      }
+    },
+    "gate": {
+      "basis-entry": {
+        "net-edge": 127,
+        "passed": 41,
+        "frequency": 485,
+        "reference-sane": 11,
+        "gap-plausible": 10,
+        "twap-floor": 2
+      },
+      "trend-entry": {
+        "cost-cap": 661,
+        "frequency": 13,
+        "reference-sane": 88,
+        "twap-floor": 3,
+        "passed": 3
+      },
+      "basis-exit": {
+        "net-edge": 25,
+        "passed": 3
+      },
+      "trend-exit": {
+        "passed": 9
+      },
+      "take-profit": {
+        "passed": 7,
+        "reference-sane": 4
+      }
+    },
+    "monthly": [
+      {
+        "month": "2026-04",
+        "returnPct": -0.28911794171735394
+      },
+      {
+        "month": "2026-05",
+        "returnPct": -0.12122537053187443
+      },
+      {
+        "month": "2026-06",
+        "returnPct": 0.18488938622795992
+      },
+      {
+        "month": "2026-07",
+        "returnPct": -0.1026810548277246
+      },
+      {
+        "month": "2026-08",
+        "returnPct": 0.9706430444110126
+      }
+    ],
+    "openPositionUsdt": 100.73462599999993,
+    "halted": false,
+    "counters": {
+      "ticks": 38016,
+      "ticksWithoutTwap": 0,
+      "ticksWithoutReference": 0,
+      "tickErrors": 0,
+      "transactions": 63,
+      "revertedTransactions": 0,
+      "resumes": 0
+    }
+  },
+  "trips": {
+    "byExchangeMove": {
+      "basis-entry: exchange fell": {
+        "count": 8,
+        "wins": 1,
+        "pnlUsdt": -1.9016350000000202,
+        "meanBps": -26.568266921673796,
+        "medianBps": -59.82047747983277,
+        "worstBps": -70.67198314775757,
+        "bestBps": 172.2032851203448,
+        "meanHoldHours": 14.177083333333334
+      },
+      "basis-entry: exchange flat": {
+        "count": 4,
+        "wins": 1,
+        "pnlUsdt": -1.7647810000000277,
+        "meanBps": -22.714040898734467,
+        "medianBps": -59.848106657007236,
+        "worstBps": -119.89178917588106,
+        "bestBps": 148.73183889495766,
+        "meanHoldHours": 5.166666666666667
+      },
+      "basis-entry: exchange rose": {
+        "count": 6,
+        "wins": 6,
+        "pnlUsdt": 11.522586000000004,
+        "meanBps": 220.35571128149982,
+        "medianBps": 194.41188943398524,
+        "worstBps": 110.22814990567342,
+        "bestBps": 414.21412982266537,
+        "meanHoldHours": 6.180555555555556
+      },
+      "trend-entry: exchange fell": {
+        "count": 1,
+        "wins": 0,
+        "pnlUsdt": -0.21088000000000306,
+        "meanBps": -55.97314966311995,
+        "medianBps": -55.97314966311995,
+        "worstBps": -55.97314966311995,
+        "bestBps": -55.97314966311995,
+        "meanHoldHours": 14
+      }
+    },
+    "byNetEdge": {
+      "net edge 25 to 50 bps": {
+        "count": 3,
+        "wins": 1,
+        "pnlUsdt": 0.371957000000009,
+        "meanBps": -6.776675109583981,
+        "medianBps": -59.88619208666779,
+        "worstBps": -70.67198314775757,
+        "bestBps": 110.22814990567342,
+        "meanHoldHours": 7.583333333333333
+      },
+      "net edge 50 to 100 bps": {
+        "count": 5,
+        "wins": 3,
+        "pnlUsdt": 4.659007999999972,
+        "meanBps": 83.18979761017366,
+        "medianBps": 148.73183889495766,
+        "worstBps": -59.825793163024166,
+        "bestBps": 203.5221080037708,
+        "meanHoldHours": 5.966666666666666
+      },
+      "net edge over 100 bps": {
+        "count": 10,
+        "wins": 4,
+        "pnlUsdt": 2.8252049999999755,
+        "meanBps": 62.311300599855464,
+        "medianBps": -49.743538071508326,
+        "worstBps": -119.89178917588106,
+        "bestBps": 414.21412982266537,
+        "meanHoldHours": 11.858333333333333
+      }
+    },
+    "byGateVerdict": {
+      "basis-entry: gate would pass": {
+        "count": 18,
+        "wins": 8,
+        "pnlUsdt": 7.856169999999956,
+        "meanBps": 56.59622048448172,
+        "medianBps": -37.3350007826867,
+        "worstBps": -119.89178917588106,
+        "bestBps": 414.21412982266537,
+        "meanHoldHours": 9.50925925925926
+      },
+      "trend-entry: gate would pass": {
+        "count": 1,
+        "wins": 0,
+        "pnlUsdt": -0.21088000000000306,
+        "meanBps": -55.97314966311995,
+        "medianBps": -55.97314966311995,
+        "worstBps": -55.97314966311995,
+        "bestBps": -55.97314966311995,
+        "meanHoldHours": 14
+      }
+    },
+    "worstFive": [
+      {
+        "opened": "2026-07-12T03:45:09.000Z",
+        "entry": "basis-entry",
+        "exit": "trend-exit",
+        "pnlUsdt": -1.3635,
+        "pnlBps": -120,
+        "holdHours": 6.2,
+        "exchangeMoveBps": 11,
+        "dexMoveBps": 0
+      },
+      {
+        "opened": "2026-04-29T22:55:09.000Z",
+        "entry": "basis-entry",
+        "exit": "trend-exit",
+        "pnlUsdt": -0.8968,
+        "pnlBps": -60,
+        "holdHours": 14.2,
+        "exchangeMoveBps": -184,
+        "dexMoveBps": 60
+      },
+      {
+        "opened": "2026-04-30T13:15:09.000Z",
+        "entry": "basis-entry",
+        "exit": "trend-exit",
+        "pnlUsdt": -0.896,
+        "pnlBps": -60,
+        "holdHours": 0.8,
+        "exchangeMoveBps": -257,
+        "dexMoveBps": 60
+      },
+      {
+        "opened": "2026-05-01T00:00:09.000Z",
+        "entry": "basis-entry",
+        "exit": "trend-exit",
+        "pnlUsdt": -0.844,
+        "pnlBps": -60,
+        "holdHours": 14.3,
+        "exchangeMoveBps": -24,
+        "dexMoveBps": 57
+      },
+      {
+        "opened": "2026-08-28T18:35:09.000Z",
+        "entry": "basis-entry",
+        "exit": "trend-exit",
+        "pnlUsdt": -0.6891,
+        "pnlBps": -35,
+        "holdHours": 3.8,
+        "exchangeMoveBps": -159,
+        "dexMoveBps": 33
+      }
+    ]
+  },
+  "gate": {
+    "basis-entry: frequency": {
+      "episodes": 24,
+      "forward": {
+        "1h": {
+          "measured": 24,
+          "meanBps": 13.1,
+          "medianBps": -79.8,
+          "positiveShare": 0.167,
+          "excessMeanBps": 5.3,
+          "excessMedianBps": -14.7
+        },
+        "6h": {
+          "measured": 24,
+          "meanBps": 49.9,
+          "medianBps": -60.5,
+          "positiveShare": 0.375,
+          "excessMeanBps": 7,
+          "excessMedianBps": 11.6
+        },
+        "24h": {
+          "measured": 23,
+          "meanBps": 119.6,
+          "medianBps": 8.4,
+          "positiveShare": 0.522,
+          "excessMeanBps": 100,
+          "excessMedianBps": 63.4
+        }
+      }
+    },
+    "basis-entry: gap-plausible": {
+      "episodes": 2,
+      "forward": {
+        "1h": {
+          "measured": 2,
+          "meanBps": 852.2,
+          "medianBps": 852.2,
+          "positiveShare": 1,
+          "excessMeanBps": 1005.8,
+          "excessMedianBps": 1005.8
+        },
+        "6h": {
+          "measured": 2,
+          "meanBps": 163.3,
+          "medianBps": 163.3,
+          "positiveShare": 1,
+          "excessMeanBps": 938.6,
+          "excessMedianBps": 938.6
+        },
+        "24h": {
+          "measured": 2,
+          "meanBps": 38.9,
+          "medianBps": 38.9,
+          "positiveShare": 0.5,
+          "excessMeanBps": 940.4,
+          "excessMedianBps": 940.4
+        }
+      }
+    },
+    "basis-entry: net-edge": {
+      "episodes": 26,
+      "forward": {
+        "1h": {
+          "measured": 26,
+          "meanBps": -44,
+          "medianBps": -79,
+          "positiveShare": 0.192,
+          "excessMeanBps": -48.1,
+          "excessMedianBps": -39.9
+        },
+        "6h": {
+          "measured": 26,
+          "meanBps": -33.1,
+          "medianBps": -57.8,
+          "positiveShare": 0.385,
+          "excessMeanBps": -67.4,
+          "excessMedianBps": 9.8
+        },
+        "24h": {
+          "measured": 26,
+          "meanBps": 96.9,
+          "medianBps": 128.2,
+          "positiveShare": 0.654,
+          "excessMeanBps": 30.2,
+          "excessMedianBps": 45.2
+        }
+      }
+    },
+    "basis-entry: passed": {
+      "episodes": 41,
+      "forward": {
+        "1h": {
+          "measured": 41,
+          "meanBps": -6.2,
+          "medianBps": -79.8,
+          "positiveShare": 0.22,
+          "excessMeanBps": -20.5,
+          "excessMedianBps": -40.8
+        },
+        "6h": {
+          "measured": 41,
+          "meanBps": 25,
+          "medianBps": -77.2,
+          "positiveShare": 0.341,
+          "excessMeanBps": -41,
+          "excessMedianBps": 24.2
+        },
+        "24h": {
+          "measured": 40,
+          "meanBps": 140.2,
+          "medianBps": 102.4,
+          "positiveShare": 0.55,
+          "excessMeanBps": 108.5,
+          "excessMedianBps": 97.1
+        }
+      }
+    },
+    "basis-entry: reference-sane": {
+      "episodes": 6,
+      "forward": {
+        "1h": {
+          "measured": 6,
+          "meanBps": 72.5,
+          "medianBps": -86.4,
+          "positiveShare": 0.167,
+          "excessMeanBps": 68.2,
+          "excessMedianBps": -123.7
+        },
+        "6h": {
+          "measured": 6,
+          "meanBps": -62.9,
+          "medianBps": -87.6,
+          "positiveShare": 0.167,
+          "excessMeanBps": -74,
+          "excessMedianBps": -86.3
+        },
+        "24h": {
+          "measured": 6,
+          "meanBps": 319.1,
+          "medianBps": 279.9,
+          "positiveShare": 0.833,
+          "excessMeanBps": 306.3,
+          "excessMedianBps": 151.3
+        }
+      }
+    },
+    "basis-entry: twap-floor": {
+      "episodes": 2,
+      "forward": {
+        "1h": {
+          "measured": 2,
+          "meanBps": 444.7,
+          "medianBps": 444.7,
+          "positiveShare": 1,
+          "excessMeanBps": 296.8,
+          "excessMedianBps": 296.8
+        },
+        "6h": {
+          "measured": 2,
+          "meanBps": 370.8,
+          "medianBps": 370.8,
+          "positiveShare": 0.5,
+          "excessMeanBps": 317.8,
+          "excessMedianBps": 317.8
+        },
+        "24h": {
+          "measured": 2,
+          "meanBps": 411.3,
+          "medianBps": 411.3,
+          "positiveShare": 0.5,
+          "excessMeanBps": 314,
+          "excessMedianBps": 314
+        }
+      }
+    },
+    "trend-entry: cost-cap": {
+      "episodes": 110,
+      "forward": {
+        "1h": {
+          "measured": 110,
+          "meanBps": -82.2,
+          "medianBps": -85.1,
+          "positiveShare": 0.109,
+          "excessMeanBps": -68.8,
+          "excessMedianBps": -79.4
+        },
+        "6h": {
+          "measured": 110,
+          "meanBps": -45.4,
+          "medianBps": -84.4,
+          "positiveShare": 0.236,
+          "excessMeanBps": -54.1,
+          "excessMedianBps": -59.2
+        },
+        "24h": {
+          "measured": 110,
+          "meanBps": -58.8,
+          "medianBps": -74.7,
+          "positiveShare": 0.309,
+          "excessMeanBps": -50.8,
+          "excessMedianBps": -48.4
+        }
+      }
+    },
+    "trend-entry: frequency": {
+      "episodes": 5,
+      "forward": {
+        "1h": {
+          "measured": 5,
+          "meanBps": -53.7,
+          "medianBps": -61.9,
+          "positiveShare": 0.2,
+          "excessMeanBps": -54.7,
+          "excessMedianBps": -27.9
+        },
+        "6h": {
+          "measured": 5,
+          "meanBps": -44.9,
+          "medianBps": -61.2,
+          "positiveShare": 0.2,
+          "excessMeanBps": -50.5,
+          "excessMedianBps": -56.3
+        },
+        "24h": {
+          "measured": 4,
+          "meanBps": 42.7,
+          "medianBps": 2.8,
+          "positiveShare": 0.5,
+          "excessMeanBps": -58.9,
+          "excessMedianBps": -42.5
+        }
+      }
+    },
+    "trend-entry: passed": {
+      "episodes": 3,
+      "forward": {
+        "1h": {
+          "measured": 3,
+          "meanBps": -53.5,
+          "medianBps": -53.2,
+          "positiveShare": 0,
+          "excessMeanBps": -7.3,
+          "excessMedianBps": -10.4
+        },
+        "6h": {
+          "measured": 3,
+          "meanBps": -53.1,
+          "medianBps": -52.8,
+          "positiveShare": 0,
+          "excessMeanBps": -55.3,
+          "excessMedianBps": -64.9
+        },
+        "24h": {
+          "measured": 1,
+          "meanBps": 85.4,
+          "medianBps": 85.4,
+          "positiveShare": 1,
+          "excessMeanBps": -156.6,
+          "excessMedianBps": -156.6
+        }
+      }
+    },
+    "trend-entry: reference-sane": {
+      "episodes": 29,
+      "forward": {
+        "1h": {
+          "measured": 29,
+          "meanBps": -50.5,
+          "medianBps": -79.8,
+          "positiveShare": 0.103,
+          "excessMeanBps": -62.1,
+          "excessMedianBps": -74.2
+        },
+        "6h": {
+          "measured": 29,
+          "meanBps": -35.3,
+          "medianBps": -91.1,
+          "positiveShare": 0.345,
+          "excessMeanBps": -42.9,
+          "excessMedianBps": -41.9
+        },
+        "24h": {
+          "measured": 29,
+          "meanBps": -83.6,
+          "medianBps": -158.8,
+          "positiveShare": 0.138,
+          "excessMeanBps": -40.6,
+          "excessMedianBps": -39.9
+        }
+      }
+    },
+    "trend-entry: twap-floor": {
+      "episodes": 3,
+      "forward": {
+        "1h": {
+          "measured": 3,
+          "meanBps": -429.8,
+          "medianBps": -570.9,
+          "positiveShare": 0,
+          "excessMeanBps": 23.3,
+          "excessMedianBps": -82
+        },
+        "6h": {
+          "measured": 3,
+          "meanBps": -498.3,
+          "medianBps": -680.2,
+          "positiveShare": 0,
+          "excessMeanBps": -60.8,
+          "excessMedianBps": -65.6
+        },
+        "24h": {
+          "measured": 3,
+          "meanBps": -586.3,
+          "medianBps": -797.3,
+          "positiveShare": 0,
+          "excessMeanBps": -44.1,
+          "excessMedianBps": -53.6
+        }
+      }
+    }
+  }
+}

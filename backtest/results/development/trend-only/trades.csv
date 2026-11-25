@@ -1,0 +1,4 @@
+opened,closed,entry,exit,buys,sells,cost_usdt,proceeds_usdt,pnl_usdt,pnl_bps,hold_hours,entry_gap_bps,entry_net_edge_bps,gate_failures,exchange_move_bps,dex_move_bps
+2026-08-28T18:40:09.000Z,2026-08-28T22:25:09.000Z,trend-entry,trend-exit,3,1,112.487619,112.132443,-0.355176,-31.6,3.75,-162.3,,,-159.7,33.1
+2026-08-29T14:25:09.000Z,2026-08-30T04:25:09.000Z,trend-entry,trend-exit,1,1,37.486680,37.276883,-0.209797,-56.0,14.00,-62.1,,,-87.1,5.5
+2026-08-30T08:25:09.000Z,2026-08-30T16:00:09.000Z,trend-entry,take-profit,4,1,149.895342,152.208360,2.313018,154.3,7.58,-171.3,,,87.1,228.1

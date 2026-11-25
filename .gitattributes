@@ -1,0 +1,3 @@
+# The backtest records SHA-256 hashes of its code and data (backtest/results/freeze.json).
+# Keep every file byte for byte on checkout, on every platform, so those hashes still match.
+* -text

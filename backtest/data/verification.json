@@ -1,0 +1,382 @@
+{
+  "generatedAt": "2026-11-24T11:42:35.330Z",
+  "dataFetchedAt": {
+    "pool": "2026-11-24T11:35:04.776Z",
+    "mexc": "2026-11-24T11:36:07.135Z",
+    "hashkey": "2026-11-24T11:36:45.452Z",
+    "lbank": "2026-11-24T11:37:17.251Z"
+  },
+  "pool": {
+    "events": 26432,
+    "stats": {
+      "swaps": 26377,
+      "mints": 31,
+      "burns": 21,
+      "swapsCrossingTicks": 115
+    },
+    "first": "2026-01-30T12:17:39.000Z",
+    "last": "2026-11-23T23:56:45.000Z",
+    "months": [
+      {
+        "month": "2026-01",
+        "swaps": 0,
+        "volumeUsdt": 0,
+        "medianLiquidity": "0"
+      },
+      {
+        "month": "2026-02",
+        "swaps": 613,
+        "volumeUsdt": 9,
+        "medianLiquidity": "21808391223830"
+      },
+      {
+        "month": "2026-03",
+        "swaps": 1253,
+        "volumeUsdt": 13,
+        "medianLiquidity": "21808391223830"
+      },
+      {
+        "month": "2026-04",
+        "swaps": 1167,
+        "volumeUsdt": 3250,
+        "medianLiquidity": "41775242821369"
+      },
+      {
+        "month": "2026-05",
+        "swaps": 5729,
+        "volumeUsdt": 71560,
+        "medianLiquidity": "123023956299956153"
+      },
+      {
+        "month": "2026-06",
+        "swaps": 4012,
+        "volumeUsdt": 42773,
+        "medianLiquidity": "123023875120496114"
+      },
+      {
+        "month": "2026-07",
+        "swaps": 5606,
+        "volumeUsdt": 31935,
+        "medianLiquidity": "123026837968279576"
+      },
+      {
+        "month": "2026-08",
+        "swaps": 1696,
+        "volumeUsdt": 41786,
+        "medianLiquidity": "123026919147739615"
+      },
+      {
+        "month": "2026-09",
+        "swaps": 2633,
+        "volumeUsdt": 113114,
+        "medianLiquidity": "1527148071609609956"
+      },
+      {
+        "month": "2026-10",
+        "swaps": 1980,
+        "volumeUsdt": 43404,
+        "medianLiquidity": "1475831005908433993"
+      },
+      {
+        "month": "2026-11",
+        "swaps": 1688,
+        "volumeUsdt": 32850,
+        "medianLiquidity": "1475831005908433993"
+      }
+    ],
+    "cardinality": [
+      {
+        "at": "2026-10-26T20:23:11.000Z",
+        "block": 29349528,
+        "next": 16
+      },
+      {
+        "at": "2026-10-31T03:21:41.000Z",
+        "block": 29534883,
+        "next": 240
+      }
+    ],
+    "swapReplay": {
+      "exactInput": 21757,
+      "exactOutputOrLimit": 4504,
+      "crossedTicks": 115,
+      "unexplained": 1,
+      "unexplainedExamples": [
+        "block 19694675 index 3"
+      ]
+    }
+  },
+  "twapAvailability": [
+    {
+      "month": "2026-01",
+      "ticks": 427,
+      "readable": "99.8%"
+    },
+    {
+      "month": "2026-02",
+      "ticks": 8064,
+      "readable": "95.8%"
+    },
+    {
+      "month": "2026-03",
+      "ticks": 8928,
+      "readable": "93.8%"
+    },
+    {
+      "month": "2026-04",
+      "ticks": 8640,
+      "readable": "95.2%"
+    },
+    {
+      "month": "2026-05",
+      "ticks": 8928,
+      "readable": "94.0%"
+    },
+    {
+      "month": "2026-06",
+      "ticks": 8640,
+      "readable": "94.2%"
+    },
+    {
+      "month": "2026-07",
+      "ticks": 8928,
+      "readable": "91.7%"
+    },
+    {
+      "month": "2026-08",
+      "ticks": 8928,
+      "readable": "93.4%"
+    },
+    {
+      "month": "2026-09",
+      "ticks": 8640,
+      "readable": "93.3%"
+    },
+    {
+      "month": "2026-10",
+      "ticks": 8928,
+      "readable": "96.5%"
+    },
+    {
+      "month": "2026-11",
+      "ticks": 6624,
+      "readable": "100.0%"
+    }
+  ],
+  "candles": {
+    "coverage": {
+      "mexc": {
+        "candles": 85676,
+        "expected": 85676,
+        "withTrades": "100.0%"
+      },
+      "hashkey": {
+        "candles": 85676,
+        "expected": 85676,
+        "withTrades": "98.3%"
+      },
+      "lbank": {
+        "candles": 85676,
+        "expected": 85676,
+        "withTrades": "100.0%"
+      }
+    },
+    "months": [
+      {
+        "month": "2026-01",
+        "referenceAvailable": "100.0%",
+        "allThree": "100.0%",
+        "mexc": "100.0%",
+        "hashkey": "100.0%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-02",
+        "referenceAvailable": "100.0%",
+        "allThree": "100.0%",
+        "mexc": "100.0%",
+        "hashkey": "100.0%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-03",
+        "referenceAvailable": "100.0%",
+        "allThree": "100.0%",
+        "mexc": "100.0%",
+        "hashkey": "100.0%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-04",
+        "referenceAvailable": "100.0%",
+        "allThree": "98.6%",
+        "mexc": "100.0%",
+        "hashkey": "98.6%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-05",
+        "referenceAvailable": "100.0%",
+        "allThree": "99.8%",
+        "mexc": "100.0%",
+        "hashkey": "99.8%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-06",
+        "referenceAvailable": "100.0%",
+        "allThree": "94.4%",
+        "mexc": "99.7%",
+        "hashkey": "94.7%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-07",
+        "referenceAvailable": "100.0%",
+        "allThree": "95.3%",
+        "mexc": "100.0%",
+        "hashkey": "95.3%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-08",
+        "referenceAvailable": "100.0%",
+        "allThree": "98.5%",
+        "mexc": "100.0%",
+        "hashkey": "98.5%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-09",
+        "referenceAvailable": "100.0%",
+        "allThree": "98.7%",
+        "mexc": "100.0%",
+        "hashkey": "98.7%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-10",
+        "referenceAvailable": "100.0%",
+        "allThree": "99.1%",
+        "mexc": "100.0%",
+        "hashkey": "99.1%",
+        "lbank": "100.0%"
+      },
+      {
+        "month": "2026-11",
+        "referenceAvailable": "100.0%",
+        "allThree": "97.8%",
+        "mexc": "100.0%",
+        "hashkey": "97.8%",
+        "lbank": "100.0%"
+      }
+    ],
+    "alignment": {
+      "mexc vs hashkey": {
+        "lag -2": "-0.021",
+        "lag -1": "0.005",
+        "lag 0": "0.379",
+        "lag 1": "0.085",
+        "lag 2": "-0.025"
+      },
+      "mexc vs lbank": {
+        "lag -2": "-0.034",
+        "lag -1": "0.003",
+        "lag 0": "0.723",
+        "lag 1": "0.015",
+        "lag 2": "-0.028"
+      },
+      "hashkey vs lbank": {
+        "lag -2": "-0.029",
+        "lag -1": "0.086",
+        "lag 0": "0.390",
+        "lag 1": "-0.001",
+        "lag 2": "-0.016"
+      }
+    },
+    "venueDisagreementBps": {
+      "median": 19.3,
+      "p90": 44.3,
+      "p99": 103.3,
+      "max": 3875.3
+    }
+  },
+  "chain": {
+    "sampledBlocks": 200,
+    "firstSample": "2026-04-22T08:52:59.000Z",
+    "lastSample": "2026-11-22T01:16:39.000Z",
+    "compared": {
+      "state": 200,
+      "twap": 111,
+      "buyQuote": 200,
+      "sellQuote": 200
+    },
+    "oracleReverts": 89,
+    "oracleRevertsPredicted": 89,
+    "quotes": {
+      "identical": 392,
+      "differingWithNormalDepth": 4,
+      "largestRelativeGapWithNormalDepth": 4.581852364182737e-8,
+      "differingInEmptiedPool": 4,
+      "examples": [
+        {
+          "block": 21971366,
+          "side": "buy",
+          "relative": 4.581852364182737e-8,
+          "ticksCrossed": 1,
+          "depthUsdt": 49300.295149
+        },
+        {
+          "block": 28822229,
+          "side": "buy",
+          "relative": 0.6225475062322099,
+          "ticksCrossed": 5,
+          "depthUsdt": 9.144346
+        },
+        {
+          "block": 28822229,
+          "side": "sell",
+          "relative": 0.9718629356173065,
+          "ticksCrossed": 1,
+          "depthUsdt": 9.144346
+        },
+        {
+          "block": 21912743,
+          "side": "sell",
+          "relative": 4.156299082680448e-8,
+          "ticksCrossed": 1,
+          "depthUsdt": 49386.227971
+        },
+        {
+          "block": 28765089,
+          "side": "buy",
+          "relative": 0.6225475062322099,
+          "ticksCrossed": 5,
+          "depthUsdt": 9.144346
+        },
+        {
+          "block": 28765089,
+          "side": "sell",
+          "relative": 0.9718629356173065,
+          "ticksCrossed": 1,
+          "depthUsdt": 9.144346
+        },
+        {
+          "block": 23988142,
+          "side": "sell",
+          "relative": 4.119789132062124e-8,
+          "ticksCrossed": 1,
+          "depthUsdt": 35071.549843
+        },
+        {
+          "block": 21991701,
+          "side": "sell",
+          "relative": 3.1170314995776494e-8,
+          "ticksCrossed": 1,
+          "depthUsdt": 49387.757034
+        }
+      ]
+    },
+    "mismatches": []
+  }
+}

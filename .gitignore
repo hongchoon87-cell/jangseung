@@ -1,0 +1,31 @@
+# Dependencies
+/node_modules
+
+# Hardhat build output and caches
+/artifacts
+/cache
+/types
+/coverage
+/snapshots
+/.gas-snapshot
+
+# Secrets: never commit keys or API tokens
+.env
+.env.*
+!.env.example
+
+# Agent runtime state (trade log, price history, chat history)
+/data
+
+# Deployments on a local fork. The records of the real networks (deployments/177*.json for
+# mainnet, deployments/133*.json for the testnet) are kept.
+/deployments/fork*
+/deployments/testnet-fork*
+
+# Working notes that are not part of the published project
+/docs/제출_초안.md
+/docs/내부_메모.md
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db

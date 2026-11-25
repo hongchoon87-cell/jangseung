@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="t">
+  <title id="t">Jangseung</title>
+  <!-- A jangseung: the carved guardian post at the entrance of a Korean village. -->
+  <rect width="512" height="512" fill="#16203A"/>
+
+  <!-- post, running off the bottom edge, with a shaded side -->
+  <rect x="128" y="96" width="256" height="416" fill="#F2B45A"/>
+  <rect x="354" y="96" width="30" height="416" fill="#E2A148"/>
+
+  <!-- hat: knob and brim -->
+  <rect x="210" y="24" width="92" height="44" rx="13" fill="#E4553B"/>
+  <rect x="84" y="54" width="344" height="54" rx="17" fill="#E4553B"/>
+
+  <!-- brows, sloping down to the middle -->
+  <rect x="158" y="159" width="84" height="18" rx="9" fill="#16203A" transform="rotate(14 200 168)"/>
+  <rect x="270" y="159" width="84" height="18" rx="9" fill="#16203A" transform="rotate(-14 312 168)"/>
+
+  <!-- eyes -->
+  <circle cx="200" cy="222" r="35" fill="#FFF7E6"/>
+  <circle cx="312" cy="222" r="35" fill="#FFF7E6"/>
+  <circle cx="206" cy="227" r="15" fill="#16203A"/>
+  <circle cx="306" cy="227" r="15" fill="#16203A"/>
+
+  <!-- nose -->
+  <rect x="240" y="210" width="32" height="102" rx="16" fill="#D08E36"/>
+  <rect x="219" y="284" width="74" height="38" rx="19" fill="#D08E36"/>
+
+  <!-- mouth and teeth -->
+  <rect x="174" y="346" width="164" height="60" rx="16" fill="#16203A"/>
+  <rect x="185" y="346" width="28.75" height="29" rx="5" fill="#FFF7E6"/>
+  <rect x="222.75" y="346" width="28.75" height="29" rx="5" fill="#FFF7E6"/>
+  <rect x="260.5" y="346" width="28.75" height="29" rx="5" fill="#FFF7E6"/>
+  <rect x="298.25" y="346" width="28.75" height="29" rx="5" fill="#FFF7E6"/>
+
+  <!-- keyhole: the vault it guards -->
+  <circle cx="256" cy="444" r="15" fill="#16203A"/>
+  <path d="M247 450 H265 L271 480 H241 Z" fill="#16203A"/>
+</svg>

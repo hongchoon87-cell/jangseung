@@ -1,0 +1,2027 @@
+{
+  "period": {
+    "name": "development",
+    "from": "2026-04-22T00:00:00.000Z",
+    "to": "2026-09-01T00:00:00.000Z"
+  },
+  "generatedAt": "2026-11-24T16:04:39.902Z",
+  "data": {
+    "pool": "c0bdb82400ce4da0e3b7aead8b9dc213ca1a3a63f5e02139351eff138110b320",
+    "mexc": "ad41054dfe3f4eabf23396487aff1362f51dc53aeaf107fadd92541c9a3c2335",
+    "hashkey": "ed25d7482b86e1a1e9f15bbf6c29bc8f0a1b575c517ae4ab9fdb525a8d7796c4",
+    "lbank": "75f2c6bb0e61fc13af962596555358db51d2677da8325d9e1273aa862ab13bf6"
+  },
+  "codeSha256": "5781225a83844ac5d6cfb75c146cd5013064b1a60566d9bb8edfa729c7904aaa",
+  "policy": {
+    "maxTradeBps": 1000,
+    "maxPositionBps": 3000,
+    "maxExposureBps": 6000,
+    "maxSlippageBps": 100,
+    "stopLossBps": 500,
+    "maxDrawdownBps": 1000,
+    "maxTradesPerDay": 12,
+    "cooldown": 300,
+    "twapWindow": 300,
+    "reentryLockout": 3600
+  },
+  "settings": {
+    "paused": false,
+    "riskAppetite": "balanced",
+    "positionSizeBps": 500,
+    "maxTradesPerDay": 4,
+    "minMinutesBetweenTrades": 15,
+    "targetAssets": [
+      "WHSK"
+    ],
+    "strategies": [
+      "basis",
+      "trend"
+    ]
+  },
+  "depositUsdt": 1000,
+  "costs": {
+    "gasPriceWei": "501000000000",
+    "gasUnits": {
+      "buy": "325000",
+      "sell": "200000",
+      "stopLoss": "225000",
+      "checkpoint": "60000"
+    },
+    "revertedGasUnits": "150000"
+  },
+  "timing": {
+    "decisionDelay": 6,
+    "executionDelay": 4
+  },
+  "assumedOracleSlots": 240,
+  "experiments": [
+    {
+      "id": "rule",
+      "note": "Rule candidates traded in full, limits only. Baseline for the gate.",
+      "arm": "rule"
+    },
+    {
+      "id": "gate",
+      "note": "Adds the verification gate to `rule`.",
+      "arm": "gate"
+    },
+    {
+      "id": "sizing",
+      "note": "Adds rule-based sizing to `gate`. The agent as first built, without an LLM.",
+      "arm": "gate+sizing"
+    },
+    {
+      "id": "basis-only",
+      "note": "`sizing` with the trend rules switched off. Chosen on the development period.",
+      "arm": "gate+sizing",
+      "settings": {
+        "strategies": [
+          "basis"
+        ]
+      }
+    },
+    {
+      "id": "basis-only-resume",
+      "note": "`basis-only` with the owner clearing a tripped breaker after 24 hours.",
+      "arm": "gate+sizing",
+      "settings": {
+        "strategies": [
+          "basis"
+        ]
+      },
+      "resumeAfterHours": 24
+    },
+    {
+      "id": "trend-only",
+      "note": "`sizing` with the gap rules switched off.",
+      "arm": "gate+sizing",
+      "settings": {
+        "strategies": [
+          "trend"
+        ]
+      }
+    },
+    {
+      "id": "conservative",
+      "note": "`sizing` with the conservative thresholds.",
+      "arm": "gate+sizing",
+      "settings": {
+        "riskAppetite": "conservative"
+      }
+    },
+    {
+      "id": "aggressive",
+      "note": "`sizing` with the aggressive thresholds.",
+      "arm": "gate+sizing",
+      "settings": {
+        "riskAppetite": "aggressive"
+      }
+    },
+    {
+      "id": "nav-100",
+      "note": "`sizing` with a 100 USDT vault: gas weighs ten times more.",
+      "arm": "gate+sizing",
+      "depositUsdt": 100
+    },
+    {
+      "id": "nav-10000",
+      "note": "`sizing` with a 10,000 USDT vault: price impact weighs ten times more.",
+      "arm": "gate+sizing",
+      "depositUsdt": 10000
+    },
+    {
+      "id": "ref-minus-10",
+      "note": "`sizing` with every exchange price 10 bps lower.",
+      "arm": "gate+sizing",
+      "referenceShiftBps": -10
+    },
+    {
+      "id": "ref-plus-10",
+      "note": "`sizing` with every exchange price 10 bps higher.",
+      "arm": "gate+sizing",
+      "referenceShiftBps": 10
+    },
+    {
+      "id": "price-taker",
+      "note": "`sizing` simulated as if our own trades never moved the pool. Shows what that common shortcut would have claimed.",
+      "arm": "gate+sizing",
+      "ignoreOwnImpact": true
+    }
+  ],
+  "baselines": [
+    {
+      "label": "hold USDT",
+      "returnPct": 0,
+      "maxDrawdownPct": 0,
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-05",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-07",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0
+        }
+      ]
+    },
+    {
+      "label": "hold HSK, 30% of the vault (the position cap)",
+      "returnPct": -10.664469742360705,
+      "maxDrawdownPct": 18.45209136754673,
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.323547034152194
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -10.260880019235385
+        },
+        {
+          "month": "2026-06",
+          "returnPct": -6.269676468618124
+        },
+        {
+          "month": "2026-07",
+          "returnPct": 2.0388765811477194
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 4.424896521294541
+        }
+      ]
+    },
+    {
+      "label": "hold HSK, whole vault",
+      "returnPct": -35.548232474535645,
+      "maxDrawdownPct": 60.133410672853834,
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -1.0784901138406355
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -34.46396123561477
+        },
+        {
+          "month": "2026-06",
+          "returnPct": -28.835489833641404
+        },
+        {
+          "month": "2026-07",
+          "returnPct": 12.350649350649356
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 24.344006473240086
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "label": "rule",
+      "arm": "rule",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 975.449508888625,
+      "returnPct": -2.4550491111374972,
+      "returnBeforeGasPct": -1.9885091999999993,
+      "gasUsdt": 4.6653991113750015,
+      "poolFeesUsdt": 50.45868985035107,
+      "maxDrawdownPct": 2.9257809787669746,
+      "maxDrawdownLiquidPct": 2.8965146156793398,
+      "timeInMarketPct": 19.365530303030305,
+      "meanExposurePct": 1.7114103637089175,
+      "executions": {
+        "basis-entry:sent": 53,
+        "trend-entry:sent": 141,
+        "basis-exit:sent": 50,
+        "trend-exit:sent": 37,
+        "take-profit:sent": 11
+      },
+      "transactions": 292,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 97,
+        "wins": 16,
+        "pnlUsdt": -19.708041999999978,
+        "meanBps": -31.10632111865112,
+        "medianBps": -59.870091239789815,
+        "worstBps": -340.7428877008323,
+        "bestBps": 898.0803780874802,
+        "meanHoldHours": 6.228522336769758
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 28,
+          "wins": 7,
+          "pnlUsdt": 9.299194000000021,
+          "meanBps": 24.830572628179613,
+          "medianBps": -38.403454937607215,
+          "worstBps": -95.03264734177618,
+          "bestBps": 898.0803780874802,
+          "meanHoldHours": 7.839285714285715
+        },
+        "trend-entry": {
+          "count": 69,
+          "wins": 9,
+          "pnlUsdt": -29.007236,
+          "meanBps": -53.805350465191104,
+          "medianBps": -59.880310316491325,
+          "worstBps": -340.7428877008323,
+          "bestBps": 637.6098070082437,
+          "meanHoldHours": 5.574879227053139
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 50,
+          "wins": 4,
+          "pnlUsdt": -21.880274999999962,
+          "meanBps": -55.87158848140007,
+          "medianBps": -59.87038456741034,
+          "worstBps": -257.52817468523756,
+          "bestBps": 126.69938627593692,
+          "meanHoldHours": 5.5299999999999985
+        },
+        "take-profit": {
+          "count": 11,
+          "wins": 11,
+          "pnlUsdt": 36.39077400000003,
+          "meanBps": 310.8947437379855,
+          "medianBps": 203.44152100407297,
+          "worstBps": 149.15414720788166,
+          "bestBps": 898.0803780874802,
+          "meanHoldHours": 5.181818181818181
+        },
+        "trend-exit": {
+          "count": 36,
+          "wins": 1,
+          "pnlUsdt": -34.218541000000045,
+          "meanBps": -101.21044182102764,
+          "medianBps": -77.37696649691873,
+          "worstBps": -340.7428877008323,
+          "bestBps": 9.10026449653989,
+          "meanHoldHours": 7.518518518518519
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 23,
+          "frequency": 450,
+          "passed": 25,
+          "reference-sane": 2,
+          "gap-plausible": 3
+        },
+        "trend-entry": {
+          "cost-cap": 120,
+          "frequency": 377,
+          "reference-sane": 19,
+          "passed": 2
+        },
+        "basis-exit": {
+          "net-edge": 42,
+          "passed": 4,
+          "reference-sane": 4
+        },
+        "trend-exit": {
+          "passed": 35,
+          "reference-sane": 2
+        },
+        "take-profit": {
+          "passed": 11
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.3863742069249998
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -2.039146567942429
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.9493971063938567
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.6349167614670637
+        },
+        {
+          "month": "2026-08",
+          "returnPct": -0.34571992979601784
+        }
+      ],
+      "openPositionUsdt": 146.87395600000002,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 292,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "gate",
+      "arm": "gate",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1006.642167443875,
+      "returnPct": 0.6642167443875024,
+      "returnBeforeGasPct": 0.7694639999999975,
+      "gasUsdt": 1.052472556125,
+      "poolFeesUsdt": 11.464754350537612,
+      "maxDrawdownPct": 0.48657286616249845,
+      "maxDrawdownLiquidPct": 0.5474496661624926,
+      "timeInMarketPct": 6.536721380471381,
+      "meanExposurePct": 0.5660434069596859,
+      "executions": {
+        "basis-entry:sent": 40,
+        "basis-exit:sent": 2,
+        "trend-exit:sent": 10,
+        "take-profit:sent": 7,
+        "trend-entry:sent": 2
+      },
+      "transactions": 61,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 19,
+        "wins": 8,
+        "pnlUsdt": 7.8783370000000374,
+        "meanBps": 51.63320858172193,
+        "medianBps": -39.6863420560134,
+        "worstBps": -100.55008438125567,
+        "bestBps": 414.20851097542896,
+        "meanHoldHours": 10.407894736842104
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 19,
+          "wins": 8,
+          "pnlUsdt": 7.8783370000000374,
+          "meanBps": 51.63320858172193,
+          "medianBps": -39.6863420560134,
+          "worstBps": -100.55008438125567,
+          "bestBps": 414.20851097542896,
+          "meanHoldHours": 10.407894736842104
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 2,
+          "wins": 0,
+          "pnlUsdt": -0.45851899999999546,
+          "meanBps": -45.92227102800661,
+          "medianBps": -45.92227102800661,
+          "worstBps": -52.15819999999982,
+          "bestBps": -39.6863420560134,
+          "meanHoldHours": 47.958333333333336
+        },
+        "take-profit": {
+          "count": 7,
+          "wins": 7,
+          "pnlUsdt": 13.082831000000006,
+          "meanBps": 218.10330463093507,
+          "medianBps": 184.58576031305185,
+          "worstBps": 148.72985752737657,
+          "bestBps": 414.20851097542896,
+          "meanHoldHours": 4.69047619047619
+        },
+        "trend-exit": {
+          "count": 10,
+          "wins": 1,
+          "pnlUsdt": -4.745974999999973,
+          "meanBps": -45.38476273078151,
+          "medianBps": -59.8205587181877,
+          "worstBps": -100.55008438125567,
+          "bestBps": 97.45258083047048,
+          "meanHoldHours": 6.9
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 248,
+          "passed": 40,
+          "frequency": 401,
+          "reference-sane": 10,
+          "gap-plausible": 10,
+          "twap-floor": 2
+        },
+        "trend-entry": {
+          "cost-cap": 718,
+          "frequency": 9,
+          "reference-sane": 93,
+          "twap-floor": 4,
+          "passed": 2
+        },
+        "basis-exit": {
+          "net-edge": 26,
+          "passed": 2
+        },
+        "trend-exit": {
+          "passed": 10
+        },
+        "take-profit": {
+          "passed": 7,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.26363697088750415
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.1579057453238386
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.18496711812456823
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.0805369929882116
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.9846252223828067
+        }
+      ],
+      "openPositionUsdt": 151.005448,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 61,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "sizing",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1006.858802968625,
+      "returnPct": 0.6858802968624955,
+      "returnBeforeGasPct": 0.7894917999999862,
+      "gasUsdt": 1.036115031375,
+      "poolFeesUsdt": 10.65574811836309,
+      "maxDrawdownPct": 0.44476081368750325,
+      "maxDrawdownLiquidPct": 0.5049699136875005,
+      "timeInMarketPct": 6.534090909090909,
+      "meanExposurePct": 0.5261434815527387,
+      "executions": {
+        "basis-entry:sent": 40,
+        "basis-exit:sent": 2,
+        "trend-exit:sent": 9,
+        "take-profit:sent": 7,
+        "trend-entry:sent": 2
+      },
+      "transactions": 60,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 18,
+        "wins": 8,
+        "pnlUsdt": 8.028384999999997,
+        "meanBps": 58.61669663224544,
+        "medianBps": -37.40033727898828,
+        "worstBps": -105.81772721083182,
+        "bestBps": 414.2008677598086,
+        "meanHoldHours": 10.981481481481481
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 18,
+          "wins": 8,
+          "pnlUsdt": 8.028384999999997,
+          "meanBps": 58.61669663224544,
+          "medianBps": -37.40033727898828,
+          "worstBps": -105.81772721083182,
+          "bestBps": 414.2008677598086,
+          "meanHoldHours": 10.981481481481481
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 2,
+          "wins": 0,
+          "pnlUsdt": -0.41088200000000086,
+          "meanBps": -44.549530861074935,
+          "medianBps": -44.549530861074935,
+          "worstBps": -49.474379782054044,
+          "bestBps": -39.624681940095826,
+          "meanHoldHours": 47.958333333333336
+        },
+        "take-profit": {
+          "count": 7,
+          "wins": 7,
+          "pnlUsdt": 12.828307999999979,
+          "meanBps": 219.6262586510172,
+          "medianBps": 185.04070286477824,
+          "worstBps": 148.72053795057516,
+          "bestBps": 414.2008677598086,
+          "meanHoldHours": 4.69047619047619
+        },
+        "trend-exit": {
+          "count": 9,
+          "wins": 1,
+          "pnlUsdt": -4.389040999999981,
+          "meanBps": -43.68713438383915,
+          "medianBps": -59.82061726469201,
+          "worstBps": -105.81772721083182,
+          "bestBps": 102.70694916487022,
+          "meanHoldHours": 7.657407407407408
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 321,
+          "passed": 40,
+          "frequency": 521,
+          "reference-sane": 15,
+          "gap-plausible": 101,
+          "twap-floor": 2
+        },
+        "trend-entry": {
+          "cost-cap": 716,
+          "frequency": 9,
+          "reference-sane": 94,
+          "twap-floor": 4,
+          "passed": 2
+        },
+        "basis-exit": {
+          "net-edge": 26,
+          "passed": 2
+        },
+        "trend-exit": {
+          "passed": 9
+        },
+        "take-profit": {
+          "passed": 7,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.2587242708875004
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.12158326032880584
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.18396061010326203
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.08646236867239088
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.9716539706607907
+        }
+      ],
+      "openPositionUsdt": 110.81392199999993,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 60,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "basis-only",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1015.335836282125,
+      "returnPct": 1.5335836282124982,
+      "returnBeforeGasPct": 1.596786299999997,
+      "gasUsdt": 0.632026717875,
+      "poolFeesUsdt": 6.817116137401205,
+      "maxDrawdownPct": 0.21955910381250307,
+      "maxDrawdownLiquidPct": 0.2807067038124956,
+      "timeInMarketPct": 9.553872053872054,
+      "meanExposurePct": 1.2407723846584668,
+      "executions": {
+        "basis-entry:sent": 29,
+        "basis-exit:sent": 3,
+        "take-profit:sent": 8
+      },
+      "transactions": 40,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 11,
+        "wins": 9,
+        "pnlUsdt": 15.849039000000005,
+        "meanBps": 152.38188337534802,
+        "medianBps": 176.51412415923494,
+        "worstBps": -78.78819361771482,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 26.66666666666667
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 11,
+          "wins": 9,
+          "pnlUsdt": 15.849039000000005,
+          "meanBps": 152.38188337534802,
+          "medianBps": 176.51412415923494,
+          "worstBps": -78.78819361771482,
+          "bestBps": 414.0665093198437,
+          "meanHoldHours": 26.66666666666667
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 3,
+          "wins": 1,
+          "pnlUsdt": -1.0668329999999813,
+          "meanBps": -23.898846622776308,
+          "medianBps": -49.474379782054044,
+          "worstBps": -78.78819361771482,
+          "bestBps": 56.56603353143996,
+          "meanHoldHours": 52.94444444444445
+        },
+        "take-profit": {
+          "count": 8,
+          "wins": 8,
+          "pnlUsdt": 16.915871999999986,
+          "meanBps": 218.48715712464465,
+          "medianBps": 181.11083501216706,
+          "worstBps": 148.56561894384558,
+          "bestBps": 414.0665093198437,
+          "meanHoldHours": 16.8125
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 481,
+          "passed": 29,
+          "frequency": 87,
+          "reference-sane": 18,
+          "gap-plausible": 10,
+          "twap-floor": 2
+        },
+        "basis-exit": {
+          "net-edge": 46,
+          "passed": 3
+        },
+        "take-profit": {
+          "passed": 8,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.12345327703749964
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.03003901054290381
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.18446158612726027
+        },
+        {
+          "month": "2026-07",
+          "returnPct": 0.2671078720773101
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 1.2320000834212808
+        }
+      ],
+      "openPositionUsdt": 35.785282999999936,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 40,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "basis-only-resume",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1015.335836282125,
+      "returnPct": 1.5335836282124982,
+      "returnBeforeGasPct": 1.596786299999997,
+      "gasUsdt": 0.632026717875,
+      "poolFeesUsdt": 6.817116137401205,
+      "maxDrawdownPct": 0.21955910381250307,
+      "maxDrawdownLiquidPct": 0.2807067038124956,
+      "timeInMarketPct": 9.553872053872054,
+      "meanExposurePct": 1.2407723846584668,
+      "executions": {
+        "basis-entry:sent": 29,
+        "basis-exit:sent": 3,
+        "take-profit:sent": 8
+      },
+      "transactions": 40,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 11,
+        "wins": 9,
+        "pnlUsdt": 15.849039000000005,
+        "meanBps": 152.38188337534802,
+        "medianBps": 176.51412415923494,
+        "worstBps": -78.78819361771482,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 26.66666666666667
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 11,
+          "wins": 9,
+          "pnlUsdt": 15.849039000000005,
+          "meanBps": 152.38188337534802,
+          "medianBps": 176.51412415923494,
+          "worstBps": -78.78819361771482,
+          "bestBps": 414.0665093198437,
+          "meanHoldHours": 26.66666666666667
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 3,
+          "wins": 1,
+          "pnlUsdt": -1.0668329999999813,
+          "meanBps": -23.898846622776308,
+          "medianBps": -49.474379782054044,
+          "worstBps": -78.78819361771482,
+          "bestBps": 56.56603353143996,
+          "meanHoldHours": 52.94444444444445
+        },
+        "take-profit": {
+          "count": 8,
+          "wins": 8,
+          "pnlUsdt": 16.915871999999986,
+          "meanBps": 218.48715712464465,
+          "medianBps": 181.11083501216706,
+          "worstBps": 148.56561894384558,
+          "bestBps": 414.0665093198437,
+          "meanHoldHours": 16.8125
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 481,
+          "passed": 29,
+          "frequency": 87,
+          "reference-sane": 18,
+          "gap-plausible": 10,
+          "twap-floor": 2
+        },
+        "basis-exit": {
+          "net-edge": 46,
+          "passed": 3
+        },
+        "take-profit": {
+          "passed": 8,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.12345327703749964
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.03003901054290381
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.18446158612726027
+        },
+        {
+          "month": "2026-07",
+          "returnPct": 0.2671078720773101
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 1.2320000834212808
+        }
+      ],
+      "openPositionUsdt": 35.785282999999936,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 40,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "trend-only",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1001.29641559125,
+      "returnPct": 0.1296415591250044,
+      "returnBeforeGasPct": 0.1509106999999954,
+      "gasUsdt": 0.21269140874999998,
+      "poolFeesUsdt": 2.0325680753560684,
+      "maxDrawdownPct": 0.1106827567749974,
+      "maxDrawdownLiquidPct": 0.15756265677499642,
+      "timeInMarketPct": 1.0837542087542087,
+      "meanExposurePct": 0.07772296582129336,
+      "executions": {
+        "trend-entry:sent": 10,
+        "trend-exit:sent": 2,
+        "take-profit:sent": 1
+      },
+      "transactions": 13,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 3,
+        "wins": 1,
+        "pnlUsdt": 1.7480449999999976,
+        "meanBps": 22.25614792769837,
+        "medianBps": -31.574674898221524,
+        "worstBps": -55.96574569953994,
+        "bestBps": 154.30886438085656,
+        "meanHoldHours": 8.444444444444445
+      },
+      "byEntryKind": {
+        "trend-entry": {
+          "count": 3,
+          "wins": 1,
+          "pnlUsdt": 1.7480449999999976,
+          "meanBps": 22.25614792769837,
+          "medianBps": -31.574674898221524,
+          "worstBps": -55.96574569953994,
+          "bestBps": 154.30886438085656,
+          "meanHoldHours": 8.444444444444445
+        }
+      },
+      "byExitKind": {
+        "take-profit": {
+          "count": 1,
+          "wins": 1,
+          "pnlUsdt": 2.3130179999999996,
+          "meanBps": 154.30886438085656,
+          "medianBps": 154.30886438085656,
+          "worstBps": 154.30886438085656,
+          "bestBps": 154.30886438085656,
+          "meanHoldHours": 7.583333333333333
+        },
+        "trend-exit": {
+          "count": 2,
+          "wins": 0,
+          "pnlUsdt": -0.564973000000002,
+          "meanBps": -43.77021029888073,
+          "medianBps": -43.77021029888073,
+          "worstBps": -55.96574569953994,
+          "bestBps": -31.574674898221524,
+          "meanHoldHours": 8.875
+        }
+      },
+      "gate": {
+        "trend-entry": {
+          "cost-cap": 845,
+          "reference-sane": 100,
+          "twap-floor": 5,
+          "passed": 10,
+          "frequency": 33
+        },
+        "trend-exit": {
+          "passed": 2
+        },
+        "take-profit": {
+          "passed": 1
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-05",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-07",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.1296415591250044
+        }
+      ],
+      "openPositionUsdt": 74.88885099999993,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 13,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "conservative",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1002.653198921875,
+      "returnPct": 0.26531989218749885,
+      "returnBeforeGasPct": 0.3689400000000065,
+      "gasUsdt": 1.0362010781250002,
+      "poolFeesUsdt": 9.893075810678036,
+      "maxDrawdownPct": 0.4436512770624972,
+      "maxDrawdownLiquidPct": 0.5044590770625064,
+      "timeInMarketPct": 2.6725589225589226,
+      "meanExposurePct": 0.28417768784492775,
+      "executions": {
+        "basis-entry:sent": 40,
+        "trend-exit:sent": 10,
+        "take-profit:sent": 7,
+        "trend-entry:sent": 2
+      },
+      "transactions": 59,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 17,
+        "wins": 8,
+        "pnlUsdt": 3.8936620000000275,
+        "meanBps": 39.4371229601731,
+        "medianBps": -34.533852810031405,
+        "worstBps": -119.89186742324299,
+        "bestBps": 414.2405715248909,
+        "meanHoldHours": 4.446078431372548
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 17,
+          "wins": 8,
+          "pnlUsdt": 3.8936620000000275,
+          "meanBps": 39.4371229601731,
+          "medianBps": -34.533852810031405,
+          "worstBps": -119.89186742324299,
+          "bestBps": 414.2405715248909,
+          "meanHoldHours": 4.446078431372548
+        }
+      },
+      "byExitKind": {
+        "take-profit": {
+          "count": 7,
+          "wins": 7,
+          "pnlUsdt": 9.401388000000004,
+          "meanBps": 176.88177041132505,
+          "medianBps": 148.7238814527858,
+          "worstBps": 87.98791897381753,
+          "bestBps": 414.2405715248909,
+          "meanHoldHours": 3.0595238095238098
+        },
+        "trend-exit": {
+          "count": 10,
+          "wins": 1,
+          "pnlUsdt": -5.507725999999977,
+          "meanBps": -56.77413025563326,
+          "medianBps": -59.85154825093653,
+          "worstBps": -119.89186742324299,
+          "bestBps": 14.017018397762815,
+          "meanHoldHours": 5.416666666666666
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 79,
+          "passed": 40,
+          "frequency": 469,
+          "reference-sane": 9,
+          "gap-plausible": 11,
+          "twap-floor": 2
+        },
+        "trend-exit": {
+          "passed": 10
+        },
+        "trend-entry": {
+          "cost-cap": 308,
+          "reference-sane": 69,
+          "frequency": 6,
+          "twap-floor": 4,
+          "passed": 2
+        },
+        "take-profit": {
+          "passed": 7,
+          "reference-sane": 2
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.2557438893375008
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.12433736483773439
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.186288768818188
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.10265191452097921
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.5636263420792487
+        }
+      ],
+      "openPositionUsdt": 77.39132499999994,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 59,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "aggressive",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 967.334060516125,
+      "returnPct": -3.2665939483875084,
+      "returnBeforeGasPct": -2.7612705000000015,
+      "gasUsdt": 5.053234483875001,
+      "poolFeesUsdt": 54.4483856079238,
+      "maxDrawdownPct": 4.296074836899886,
+      "maxDrawdownLiquidPct": 4.262118581899378,
+      "timeInMarketPct": 41.87710437710438,
+      "meanExposurePct": 4.329275774601546,
+      "executions": {
+        "basis-entry:sent": 39,
+        "trend-entry:sent": 173,
+        "basis-exit:sent": 46,
+        "trend-exit:sent": 41,
+        "take-profit:sent": 15,
+        "soft-stop:sent": 1,
+        "basis-entry:failed": 1
+      },
+      "transactions": 316,
+      "revertedTransactions": 1,
+      "roundTrips": {
+        "count": 99,
+        "wins": 27,
+        "pnlUsdt": -27.437501000000132,
+        "meanBps": -28.519336631053026,
+        "medianBps": -59.879965266707025,
+        "worstBps": -521.6693499678493,
+        "bestBps": 633.4952125542248,
+        "meanHoldHours": 13.306397306397308
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 25,
+          "wins": 8,
+          "pnlUsdt": 6.900656999999995,
+          "meanBps": 55.61845429526433,
+          "medianBps": -59.8206963243475,
+          "worstBps": -100.71978197791931,
+          "bestBps": 633.4952125542248,
+          "meanHoldHours": 10.096666666666668
+        },
+        "trend-entry": {
+          "count": 74,
+          "wins": 19,
+          "pnlUsdt": -34.33815800000013,
+          "meanBps": -56.94426599805215,
+          "medianBps": -59.88063928403453,
+          "worstBps": -521.6693499678493,
+          "bestBps": 360.8323549969095,
+          "meanHoldHours": 14.390765765765764
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 43,
+          "wins": 10,
+          "pnlUsdt": -9.517718000000102,
+          "meanBps": -35.488183177279915,
+          "medianBps": -59.8703284630675,
+          "worstBps": -270.8764175827738,
+          "bestBps": 247.7929384855293,
+          "meanHoldHours": 10.156976744186048
+        },
+        "soft-stop": {
+          "count": 1,
+          "wins": 0,
+          "pnlUsdt": -2.5409489999999977,
+          "meanBps": -521.6693499678493,
+          "medianBps": -521.6693499678493,
+          "worstBps": -521.6693499678493,
+          "bestBps": -521.6693499678493,
+          "meanHoldHours": 0.4166666666666667
+        },
+        "take-profit": {
+          "count": 15,
+          "wins": 15,
+          "pnlUsdt": 42.288245,
+          "meanBps": 326.18472337894195,
+          "medianBps": 309.20832664678375,
+          "worstBps": 240.35796088497818,
+          "bestBps": 633.4952125542248,
+          "meanHoldHours": 16.34444444444444
+        },
+        "trend-exit": {
+          "count": 40,
+          "wins": 2,
+          "pnlUsdt": -57.667079000000044,
+          "meanBps": -141.71309876418735,
+          "medianBps": -105.38916732505567,
+          "worstBps": -442.94422449871695,
+          "bestBps": 60.166354628501395,
+          "meanHoldHours": 15.875
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 476,
+          "passed": 40,
+          "frequency": 447,
+          "reference-sane": 15,
+          "gap-plausible": 11
+        },
+        "trend-entry": {
+          "passed": 173,
+          "frequency": 380,
+          "reference-sane": 73,
+          "cost-cap": 151,
+          "twap-floor": 2,
+          "no-premium": 12
+        },
+        "basis-exit": {
+          "net-edge": 1262,
+          "passed": 46,
+          "reference-sane": 32
+        },
+        "trend-exit": {
+          "passed": 41,
+          "reference-sane": 7
+        },
+        "take-profit": {
+          "reference-sane": 8,
+          "passed": 15
+        },
+        "soft-stop": {
+          "passed": 1
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.40364054663750704
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -1.9698971768453144
+        },
+        {
+          "month": "2026-06",
+          "returnPct": -0.7940561471573404
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.6365103162087937
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.5099434599064923
+        }
+      ],
+      "openPositionUsdt": 145.71633199999997,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 316,
+        "revertedTransactions": 1,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "nav-100",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 100,
+      "finalUsdt": 100.59198418712501,
+      "returnPct": 0.5919841871250053,
+      "returnBeforeGasPct": 1.2288180000000093,
+      "gasUsdt": 0.6368338128750001,
+      "poolFeesUsdt": 0.7427958355426278,
+      "maxDrawdownPct": 0.4878726213750042,
+      "maxDrawdownLiquidPct": 0.5590466213750034,
+      "timeInMarketPct": 2.109638047138047,
+      "meanExposurePct": 0.2771845752020391,
+      "executions": {
+        "basis-entry:sent": 29,
+        "trend-exit:sent": 3,
+        "take-profit:sent": 8
+      },
+      "transactions": 40,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 11,
+        "wins": 8,
+        "pnlUsdt": 1.2288180000000035,
+        "meanBps": 146.05743501067965,
+        "medianBps": 169.4359005348245,
+        "worstBps": -70.60183263631447,
+        "bestBps": 439.1412687760976,
+        "meanHoldHours": 6.075757575757575
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 11,
+          "wins": 8,
+          "pnlUsdt": 1.2288180000000035,
+          "meanBps": 146.05743501067965,
+          "medianBps": 169.4359005348245,
+          "worstBps": -70.60183263631447,
+          "bestBps": 439.1412687760976,
+          "meanHoldHours": 6.075757575757575
+        }
+      },
+      "byExitKind": {
+        "take-profit": {
+          "count": 8,
+          "wins": 8,
+          "pnlUsdt": 1.5421580000000046,
+          "meanBps": 220.52987425583342,
+          "medianBps": 192.297146159357,
+          "worstBps": 151.33915753780425,
+          "bestBps": 439.1412687760976,
+          "meanHoldHours": 5.427083333333333
+        },
+        "trend-exit": {
+          "count": 3,
+          "wins": 0,
+          "pnlUsdt": -0.31334000000000106,
+          "meanBps": -52.535736309730446,
+          "medianBps": -59.89460655730916,
+          "worstBps": -70.60183263631447,
+          "bestBps": -27.110769735567697,
+          "meanHoldHours": 7.8055555555555545
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 375,
+          "reference-sane": 11,
+          "passed": 29,
+          "frequency": 677,
+          "gap-plausible": 12,
+          "twap-floor": 2
+        },
+        "trend-entry": {
+          "cost-cap": 698,
+          "frequency": 33,
+          "reference-sane": 92,
+          "twap-floor": 3
+        },
+        "trend-exit": {
+          "passed": 3
+        },
+        "take-profit": {
+          "passed": 8,
+          "reference-sane": 5
+        },
+        "basis-exit": {
+          "net-edge": 9
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.3704953126249966
+        },
+        {
+          "month": "2026-05",
+          "returnPct": 0
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.41620090208331906
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.14896970688742517
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.6975876732852271
+        }
+      ],
+      "openPositionUsdt": 0,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 40,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "nav-10000",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 10000,
+      "finalUsdt": 10003.57888641325,
+      "returnPct": 0.03578886413249105,
+      "returnBeforeGasPct": 0.04346774999999248,
+      "gasUsdt": 0.7678885867499999,
+      "poolFeesUsdt": 34.25322573785357,
+      "maxDrawdownPct": 0.2399707661911414,
+      "maxDrawdownLiquidPct": 0.32099061061156303,
+      "timeInMarketPct": 6.607744107744108,
+      "meanExposurePct": 0.1714242712596934,
+      "executions": {
+        "basis-entry:sent": 25,
+        "basis-exit:sent": 3,
+        "trend-exit:sent": 11,
+        "take-profit:sent": 6,
+        "trend-entry:sent": 2
+      },
+      "transactions": 47,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 20,
+        "wins": 7,
+        "pnlUsdt": 7.088470000000086,
+        "meanBps": 22.786358544430282,
+        "medianBps": -59.82005601850915,
+        "worstBps": -119.71177191407057,
+        "bestBps": 378.41441697006985,
+        "meanHoldHours": 10.012500000000001
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 19,
+          "wins": 7,
+          "pnlUsdt": 9.696055000000115,
+          "meanBps": 27.64833108863048,
+          "medianBps": -59.82005405365975,
+          "worstBps": -119.71177191407057,
+          "bestBps": 378.41441697006985,
+          "meanHoldHours": 9.80263157894737
+        },
+        "trend-entry": {
+          "count": 1,
+          "wins": 0,
+          "pnlUsdt": -2.6075850000000287,
+          "meanBps": -69.59111979537357,
+          "medianBps": -69.59111979537357,
+          "worstBps": -69.59111979537357,
+          "bestBps": -69.59111979537357,
+          "meanHoldHours": 14
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 3,
+          "wins": 0,
+          "pnlUsdt": -2.6132239999999882,
+          "meanBps": -71.91330950972686,
+          "medianBps": -75.95447903585794,
+          "worstBps": -79.93643224583846,
+          "bestBps": -59.84901724748415,
+          "meanHoldHours": 32.22222222222222
+        },
+        "take-profit": {
+          "count": 6,
+          "wins": 6,
+          "pnlUsdt": 30.58370100000012,
+          "meanBps": 209.7885429752481,
+          "medianBps": 194.24182260650235,
+          "worstBps": 120.08238595103026,
+          "bestBps": 378.41441697006985,
+          "meanHoldHours": 5.694444444444444
+        },
+        "trend-exit": {
+          "count": 11,
+          "wins": 1,
+          "pnlUsdt": -20.882007000000044,
+          "meanBps": -53.387650766700204,
+          "medianBps": -59.820063857930485,
+          "worstBps": -119.71177191407057,
+          "bestBps": 105.77464998239749,
+          "meanHoldHours": 6.310606060606062
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 214,
+          "twap-floor": 6,
+          "passed": 25,
+          "frequency": 187,
+          "reference-sane": 14,
+          "gap-plausible": 10
+        },
+        "trend-entry": {
+          "cost-cap": 704,
+          "reference-sane": 92,
+          "twap-floor": 5,
+          "passed": 2,
+          "frequency": 6
+        },
+        "basis-exit": {
+          "net-edge": 32,
+          "passed": 3
+        },
+        "trend-exit": {
+          "passed": 11
+        },
+        "take-profit": {
+          "passed": 6,
+          "reference-sane": 3
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.05256343002749686
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.01262885667524527
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.018642180396200025
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.034876929013116786
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.11730067803352728
+        }
+      ],
+      "openPositionUsdt": 707.3072589999992,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 47,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "ref-minus-10",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1006.3914570745236,
+      "returnPct": 0.6391457074523599,
+      "returnBeforeGasPct": 0.7482588000000012,
+      "gasUsdt": 1.091130925476375,
+      "poolFeesUsdt": 10.799563660444333,
+      "maxDrawdownPct": 0.4760434369277391,
+      "maxDrawdownLiquidPct": 0.5371486369277363,
+      "timeInMarketPct": 6.139520202020202,
+      "meanExposurePct": 0.49888621674172107,
+      "executions": {
+        "basis-entry:sent": 41,
+        "basis-exit:sent": 3,
+        "trend-exit:sent": 9,
+        "take-profit:sent": 7,
+        "trend-entry:sent": 3
+      },
+      "transactions": 63,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 19,
+        "wins": 8,
+        "pnlUsdt": 7.645289999999953,
+        "meanBps": 50.671516792502686,
+        "medianBps": -39.666612374934516,
+        "worstBps": -119.89178917588106,
+        "bestBps": 414.21412982266537,
+        "meanHoldHours": 9.74561403508772
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 18,
+          "wins": 8,
+          "pnlUsdt": 7.856169999999956,
+          "meanBps": 56.59622048448172,
+          "medianBps": -37.3350007826867,
+          "worstBps": -119.89178917588106,
+          "bestBps": 414.21412982266537,
+          "meanHoldHours": 9.50925925925926
+        },
+        "trend-entry": {
+          "count": 1,
+          "wins": 0,
+          "pnlUsdt": -0.21088000000000306,
+          "meanBps": -55.97314966311995,
+          "medianBps": -55.97314966311995,
+          "worstBps": -55.97314966311995,
+          "bestBps": -55.97314966311995,
+          "meanHoldHours": 14
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 3,
+          "wins": 0,
+          "pnlUsdt": -0.6708209999999966,
+          "meanBps": -56.74159586978663,
+          "medianBps": -59.88619208666779,
+          "worstBps": -70.67198314775757,
+          "bestBps": -39.666612374934516,
+          "meanHoldHours": 28.25
+        },
+        "take-profit": {
+          "count": 7,
+          "wins": 7,
+          "pnlUsdt": 12.968417999999986,
+          "meanBps": 218.97732025694685,
+          "medianBps": 185.30167086419968,
+          "worstBps": 148.73183889495766,
+          "bestBps": 414.21412982266537,
+          "meanHoldHours": 4.69047619047619
+        },
+        "trend-exit": {
+          "count": 9,
+          "wins": 1,
+          "pnlUsdt": -4.652307000000036,
+          "meanBps": -44.428626125746376,
+          "medianBps": -59.82049119158339,
+          "worstBps": -119.89178917588106,
+          "bestBps": 110.22814990567342,
+          "meanHoldHours": 7.50925925925926
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 127,
+          "passed": 41,
+          "frequency": 485,
+          "reference-sane": 11,
+          "gap-plausible": 10,
+          "twap-floor": 2
+        },
+        "trend-entry": {
+          "cost-cap": 661,
+          "frequency": 13,
+          "reference-sane": 88,
+          "twap-floor": 3,
+          "passed": 3
+        },
+        "basis-exit": {
+          "net-edge": 25,
+          "passed": 3
+        },
+        "trend-exit": {
+          "passed": 9
+        },
+        "take-profit": {
+          "passed": 7,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.28911794171735394
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.12122537053187443
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.18488938622795992
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.1026810548277246
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.9706430444110126
+        }
+      ],
+      "openPositionUsdt": 100.73462599999993,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 63,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "ref-plus-10",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1008.5039368382154,
+      "returnPct": 0.8503936838215376,
+      "returnBeforeGasPct": 0.9609042999999984,
+      "gasUsdt": 1.1051061617846252,
+      "poolFeesUsdt": 11.368565779624877,
+      "maxDrawdownPct": 0.4492038829763262,
+      "maxDrawdownLiquidPct": 0.48500876738297777,
+      "timeInMarketPct": 7.449494949494949,
+      "meanExposurePct": 0.5940230258806405,
+      "executions": {
+        "basis-entry:sent": 43,
+        "basis-exit:sent": 2,
+        "trend-exit:sent": 9,
+        "take-profit:sent": 8,
+        "trend-entry:sent": 2
+      },
+      "transactions": 64,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 19,
+        "wins": 10,
+        "pnlUsdt": 9.71427800000006,
+        "meanBps": 72.02979460442455,
+        "medianBps": 43.466485668313126,
+        "worstBps": -102.8154005094295,
+        "bestBps": 414.1646898490614,
+        "meanHoldHours": 11.929824561403507
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 19,
+          "wins": 10,
+          "pnlUsdt": 9.71427800000006,
+          "meanBps": 72.02979460442455,
+          "medianBps": 43.466485668313126,
+          "worstBps": -102.8154005094295,
+          "bestBps": 414.1646898490614,
+          "meanHoldHours": 11.929824561403507
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 2,
+          "wins": 1,
+          "pnlUsdt": 0.06656000000000262,
+          "meanBps": 1.913569066783193,
+          "medianBps": 1.913569066783193,
+          "worstBps": -39.63934753474674,
+          "bestBps": 43.466485668313126,
+          "meanHoldHours": 61.75
+        },
+        "take-profit": {
+          "count": 8,
+          "wins": 8,
+          "pnlUsdt": 14.045441000000014,
+          "meanBps": 220.0849873000299,
+          "medianBps": 194.05651551333446,
+          "worstBps": 148.68508787243772,
+          "bestBps": 414.1646898490614,
+          "meanHoldHours": 4.28125
+        },
+        "trend-exit": {
+          "count": 9,
+          "wins": 1,
+          "pnlUsdt": -4.3977229999999565,
+          "meanBps": -43.99343767219326,
+          "medianBps": -59.82047852219785,
+          "worstBps": -102.8154005094295,
+          "bestBps": 97.36500767112632,
+          "meanHoldHours": 7.657407407407408
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 200,
+          "passed": 43,
+          "frequency": 529,
+          "reference-sane": 13,
+          "gap-plausible": 10,
+          "twap-floor": 2
+        },
+        "trend-entry": {
+          "frequency": 12,
+          "cost-cap": 765,
+          "reference-sane": 94,
+          "twap-floor": 4,
+          "passed": 2
+        },
+        "basis-exit": {
+          "net-edge": 3,
+          "passed": 2
+        },
+        "trend-exit": {
+          "passed": 9
+        },
+        "take-profit": {
+          "passed": 8,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.21401297687029253
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.12419373537602141
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.18481608440332753
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.008658842062403416
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 1.0144360119841656
+        }
+      ],
+      "openPositionUsdt": 121.04602399999999,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 64,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    },
+    {
+      "label": "price-taker",
+      "arm": "gate+sizing",
+      "from": "2026-04-22T00:00:00.000Z",
+      "to": "2026-09-01T00:00:00.000Z",
+      "days": 132,
+      "depositUsdt": 1000,
+      "finalUsdt": 1004.903723628375,
+      "returnPct": 0.49037236283751007,
+      "returnBeforeGasPct": 0.5972762000000076,
+      "gasUsdt": 1.069038371625,
+      "poolFeesUsdt": 11.20612651211735,
+      "maxDrawdownPct": 0.6546343661624974,
+      "maxDrawdownLiquidPct": 0.7157797661624954,
+      "timeInMarketPct": 6.489372895622895,
+      "meanExposurePct": 0.5398605786631091,
+      "executions": {
+        "basis-entry:sent": 41,
+        "basis-exit:sent": 2,
+        "trend-exit:sent": 10,
+        "take-profit:sent": 7,
+        "trend-entry:sent": 2
+      },
+      "transactions": 62,
+      "revertedTransactions": 0,
+      "roundTrips": {
+        "count": 19,
+        "wins": 8,
+        "pnlUsdt": 6.1059420000000415,
+        "meanBps": 41.390078229486384,
+        "medianBps": -38.99166881274007,
+        "worstBps": -99.59118787957632,
+        "bestBps": 414.2746388332963,
+        "meanHoldHours": 10.328947368421053
+      },
+      "byEntryKind": {
+        "basis-entry": {
+          "count": 19,
+          "wins": 8,
+          "pnlUsdt": 6.1059420000000415,
+          "meanBps": 41.390078229486384,
+          "medianBps": -38.99166881274007,
+          "worstBps": -99.59118787957632,
+          "bestBps": 414.2746388332963,
+          "meanHoldHours": 10.328947368421053
+        }
+      },
+      "byExitKind": {
+        "basis-exit": {
+          "count": 2,
+          "wins": 0,
+          "pnlUsdt": -0.40729000000000326,
+          "meanBps": -44.23302429739706,
+          "medianBps": -44.23302429739706,
+          "worstBps": -49.474379782054044,
+          "bestBps": -38.99166881274007,
+          "meanHoldHours": 47.958333333333336
+        },
+        "take-profit": {
+          "count": 7,
+          "wins": 7,
+          "pnlUsdt": 12.938850999999993,
+          "meanBps": 212.88005268370378,
+          "medianBps": 178.04010472291188,
+          "worstBps": 136.24303169659902,
+          "bestBps": 414.2746388332963,
+          "meanHoldHours": 4.476190476190475
+        },
+        "trend-exit": {
+          "count": 10,
+          "wins": 1,
+          "pnlUsdt": -6.425618999999948,
+          "meanBps": -61.52828338308914,
+          "medianBps": -82.99795560664347,
+          "worstBps": -99.59118787957632,
+          "bestBps": 111.28678710022211,
+          "meanHoldHours": 6.9
+        }
+      },
+      "gate": {
+        "basis-entry": {
+          "net-edge": 429,
+          "passed": 41,
+          "frequency": 410,
+          "reference-sane": 13,
+          "gap-plausible": 10,
+          "twap-floor": 2
+        },
+        "trend-entry": {
+          "cost-cap": 717,
+          "frequency": 10,
+          "reference-sane": 93,
+          "twap-floor": 4,
+          "passed": 2
+        },
+        "basis-exit": {
+          "net-edge": 25,
+          "passed": 2
+        },
+        "trend-exit": {
+          "passed": 10
+        },
+        "take-profit": {
+          "passed": 7,
+          "reference-sane": 4
+        }
+      },
+      "monthly": [
+        {
+          "month": "2026-04",
+          "returnPct": -0.3875497708874964
+        },
+        {
+          "month": "2026-05",
+          "returnPct": -0.21867150832953763
+        },
+        {
+          "month": "2026-06",
+          "returnPct": 0.20224108731743407
+        },
+        {
+          "month": "2026-07",
+          "returnPct": -0.09080805883383558
+        },
+        {
+          "month": "2026-08",
+          "returnPct": 0.9900691198179823
+        }
+      ],
+      "openPositionUsdt": 110.59255499999995,
+      "halted": false,
+      "counters": {
+        "ticks": 38016,
+        "ticksWithoutTwap": 0,
+        "ticksWithoutReference": 0,
+        "tickErrors": 0,
+        "transactions": 62,
+        "revertedTransactions": 0,
+        "resumes": 0
+      }
+    }
+  ]
+}

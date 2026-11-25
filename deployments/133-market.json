@@ -1,0 +1,15 @@
+{
+  "chainId": 133,
+  "market": "0x383D6e2911b9C30f6f43C3828D12421E9d85E1F4",
+  "whsk": "0x1F0B361ed9456d0A791215544bce4C3941760A9D",
+  "usdt": "0x9bE0a9bde26B0c89F5592A29Bf426687F475A074",
+  "pool": "0x2d13c92696d34249461aA1fd71e7d0cF7E046A7A",
+  "oracleSlots": 151,
+  "seeded": {
+    "sqrtPriceX96": "22523105442617287490681",
+    "liquidity": "1475813786831558685",
+    "usdtPerWhsk": 0.08081600397193602,
+    "mainnetBlock": "30594885"
+  },
+  "updatedAt": "2026-11-24T16:15:44.175Z"
+}

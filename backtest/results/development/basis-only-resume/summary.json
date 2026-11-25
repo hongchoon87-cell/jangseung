@@ -1,0 +1,438 @@
+{
+  "experiment": {
+    "id": "basis-only-resume",
+    "note": "`basis-only` with the owner clearing a tripped breaker after 24 hours.",
+    "arm": "gate+sizing",
+    "settings": {
+      "strategies": [
+        "basis"
+      ]
+    },
+    "resumeAfterHours": 24
+  },
+  "summary": {
+    "label": "basis-only-resume",
+    "arm": "gate+sizing",
+    "from": "2026-04-22T00:00:00.000Z",
+    "to": "2026-09-01T00:00:00.000Z",
+    "days": 132,
+    "depositUsdt": 1000,
+    "finalUsdt": 1015.335836282125,
+    "returnPct": 1.5335836282124982,
+    "returnBeforeGasPct": 1.596786299999997,
+    "gasUsdt": 0.632026717875,
+    "poolFeesUsdt": 6.817116137401205,
+    "maxDrawdownPct": 0.21955910381250307,
+    "maxDrawdownLiquidPct": 0.2807067038124956,
+    "timeInMarketPct": 9.553872053872054,
+    "meanExposurePct": 1.2407723846584668,
+    "executions": {
+      "basis-entry:sent": 29,
+      "basis-exit:sent": 3,
+      "take-profit:sent": 8
+    },
+    "transactions": 40,
+    "revertedTransactions": 0,
+    "roundTrips": {
+      "count": 11,
+      "wins": 9,
+      "pnlUsdt": 15.849039000000005,
+      "meanBps": 152.38188337534802,
+      "medianBps": 176.51412415923494,
+      "worstBps": -78.78819361771482,
+      "bestBps": 414.0665093198437,
+      "meanHoldHours": 26.66666666666667
+    },
+    "byEntryKind": {
+      "basis-entry": {
+        "count": 11,
+        "wins": 9,
+        "pnlUsdt": 15.849039000000005,
+        "meanBps": 152.38188337534802,
+        "medianBps": 176.51412415923494,
+        "worstBps": -78.78819361771482,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 26.66666666666667
+      }
+    },
+    "byExitKind": {
+      "basis-exit": {
+        "count": 3,
+        "wins": 1,
+        "pnlUsdt": -1.0668329999999813,
+        "meanBps": -23.898846622776308,
+        "medianBps": -49.474379782054044,
+        "worstBps": -78.78819361771482,
+        "bestBps": 56.56603353143996,
+        "meanHoldHours": 52.94444444444445
+      },
+      "take-profit": {
+        "count": 8,
+        "wins": 8,
+        "pnlUsdt": 16.915871999999986,
+        "meanBps": 218.48715712464465,
+        "medianBps": 181.11083501216706,
+        "worstBps": 148.56561894384558,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 16.8125
+      }
+    },
+    "gate": {
+      "basis-entry": {
+        "net-edge": 481,
+        "passed": 29,
+        "frequency": 87,
+        "reference-sane": 18,
+        "gap-plausible": 10,
+        "twap-floor": 2
+      },
+      "basis-exit": {
+        "net-edge": 46,
+        "passed": 3
+      },
+      "take-profit": {
+        "passed": 8,
+        "reference-sane": 4
+      }
+    },
+    "monthly": [
+      {
+        "month": "2026-04",
+        "returnPct": -0.12345327703749964
+      },
+      {
+        "month": "2026-05",
+        "returnPct": -0.03003901054290381
+      },
+      {
+        "month": "2026-06",
+        "returnPct": 0.18446158612726027
+      },
+      {
+        "month": "2026-07",
+        "returnPct": 0.2671078720773101
+      },
+      {
+        "month": "2026-08",
+        "returnPct": 1.2320000834212808
+      }
+    ],
+    "openPositionUsdt": 35.785282999999936,
+    "halted": false,
+    "counters": {
+      "ticks": 38016,
+      "ticksWithoutTwap": 0,
+      "ticksWithoutReference": 0,
+      "tickErrors": 0,
+      "transactions": 40,
+      "revertedTransactions": 0,
+      "resumes": 0
+    }
+  },
+  "trips": {
+    "byExchangeMove": {
+      "basis-entry: exchange fell": {
+        "count": 4,
+        "wins": 2,
+        "pnlUsdt": 0.3636020000000215,
+        "meanBps": 26.314455927742834,
+        "medianBps": 3.5458268746929598,
+        "worstBps": -78.78819361771482,
+        "bestBps": 176.95436357930026,
+        "meanHoldHours": 42.020833333333336
+      },
+      "basis-entry: exchange flat": {
+        "count": 1,
+        "wins": 1,
+        "pnlUsdt": 0.7446950000000001,
+        "meanBps": 148.56561894384558,
+        "medianBps": 148.56561894384558,
+        "worstBps": 148.56561894384558,
+        "bestBps": 148.56561894384558,
+        "meanHoldHours": 0.16666666666666666
+      },
+      "basis-entry: exchange rose": {
+        "count": 6,
+        "wins": 6,
+        "pnlUsdt": 14.740741999999983,
+        "meanBps": 237.06287907900193,
+        "medianBps": 208.68418077703456,
+        "worstBps": 164.2250158170211,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 20.847222222222225
+      }
+    },
+    "byNetEdge": {
+      "net edge 25 to 50 bps": {
+        "count": 4,
+        "wins": 2,
+        "pnlUsdt": 0.9387830000000221,
+        "meanBps": 26.204396072726503,
+        "medianBps": 3.5458268746929598,
+        "worstBps": -78.78819361771482,
+        "bestBps": 176.51412415923494,
+        "meanHoldHours": 42.66666666666667
+      },
+      "net edge 50 to 100 bps": {
+        "count": 3,
+        "wins": 3,
+        "pnlUsdt": 8.236421999999969,
+        "meanBps": 181.6305632899673,
+        "medianBps": 164.2250158170211,
+        "worstBps": 148.56561894384558,
+        "bestBps": 232.10105510903523,
+        "meanHoldHours": 33.861111111111114
+      },
+      "net edge over 100 bps": {
+        "count": 4,
+        "wins": 4,
+        "pnlUsdt": 6.673834000000014,
+        "meanBps": 256.6228607420051,
+        "medianBps": 217.73528503443828,
+        "worstBps": 176.95436357930026,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 5.270833333333334
+      }
+    },
+    "byGateVerdict": {
+      "basis-entry: gate would pass": {
+        "count": 11,
+        "wins": 9,
+        "pnlUsdt": 15.849039000000005,
+        "meanBps": 152.38188337534802,
+        "medianBps": 176.51412415923494,
+        "worstBps": -78.78819361771482,
+        "bestBps": 414.0665093198437,
+        "meanHoldHours": 26.66666666666667
+      }
+    },
+    "worstFive": [
+      {
+        "opened": "2026-04-29T22:25:09.000Z",
+        "entry": "basis-entry",
+        "exit": "basis-exit",
+        "pnlUsdt": -1.1791,
+        "pnlBps": -79,
+        "holdHours": 127.9,
+        "exchangeMoveBps": -202,
+        "dexMoveBps": 41
+      },
+      {
+        "opened": "2026-04-23T07:50:09.000Z",
+        "entry": "basis-entry",
+        "exit": "basis-exit",
+        "pnlUsdt": -0.2134,
+        "pnlBps": -49,
+        "holdHours": 20.3,
+        "exchangeMoveBps": -184,
+        "dexMoveBps": 27
+      },
+      {
+        "opened": "2026-08-30T15:15:09.000Z",
+        "entry": "basis-entry",
+        "exit": "basis-exit",
+        "pnlUsdt": 0.3256,
+        "pnlBps": 57,
+        "holdHours": 10.7,
+        "exchangeMoveBps": -43,
+        "dexMoveBps": 120
+      },
+      {
+        "opened": "2026-07-31T15:20:09.000Z",
+        "entry": "basis-entry",
+        "exit": "take-profit",
+        "pnlUsdt": 0.7447,
+        "pnlBps": 149,
+        "holdHours": 0.2,
+        "exchangeMoveBps": 16,
+        "dexMoveBps": 238
+      },
+      {
+        "opened": "2026-08-21T13:40:09.000Z",
+        "entry": "basis-entry",
+        "exit": "take-profit",
+        "pnlUsdt": 1.2609,
+        "pnlBps": 250,
+        "holdHours": 0.3,
+        "exchangeMoveBps": 826,
+        "dexMoveBps": 339
+      }
+    ]
+  },
+  "gate": {
+    "basis-entry: frequency": {
+      "episodes": 18,
+      "forward": {
+        "1h": {
+          "measured": 18,
+          "meanBps": 32.1,
+          "medianBps": -61.9,
+          "positiveShare": 0.167,
+          "excessMeanBps": 2.6,
+          "excessMedianBps": -7.3
+        },
+        "6h": {
+          "measured": 18,
+          "meanBps": 66.3,
+          "medianBps": -34.9,
+          "positiveShare": 0.389,
+          "excessMeanBps": -6.1,
+          "excessMedianBps": 18.3
+        },
+        "24h": {
+          "measured": 17,
+          "meanBps": 204.3,
+          "medianBps": 137.7,
+          "positiveShare": 0.765,
+          "excessMeanBps": 100.8,
+          "excessMedianBps": 66.6
+        }
+      }
+    },
+    "basis-entry: gap-plausible": {
+      "episodes": 2,
+      "forward": {
+        "1h": {
+          "measured": 2,
+          "meanBps": 852.2,
+          "medianBps": 852.2,
+          "positiveShare": 1,
+          "excessMeanBps": 1005.8,
+          "excessMedianBps": 1005.8
+        },
+        "6h": {
+          "measured": 2,
+          "meanBps": 163.3,
+          "medianBps": 163.3,
+          "positiveShare": 1,
+          "excessMeanBps": 938.6,
+          "excessMedianBps": 938.6
+        },
+        "24h": {
+          "measured": 2,
+          "meanBps": 38.9,
+          "medianBps": 38.9,
+          "positiveShare": 0.5,
+          "excessMeanBps": 940.4,
+          "excessMedianBps": 940.4
+        }
+      }
+    },
+    "basis-entry: net-edge": {
+      "episodes": 32,
+      "forward": {
+        "1h": {
+          "measured": 32,
+          "meanBps": -44.5,
+          "medianBps": -79.8,
+          "positiveShare": 0.188,
+          "excessMeanBps": -47.2,
+          "excessMedianBps": -27.5
+        },
+        "6h": {
+          "measured": 32,
+          "meanBps": -40,
+          "medianBps": -62.1,
+          "positiveShare": 0.313,
+          "excessMeanBps": -62.5,
+          "excessMedianBps": -0.2
+        },
+        "24h": {
+          "measured": 31,
+          "meanBps": 60.7,
+          "medianBps": 31.3,
+          "positiveShare": 0.548,
+          "excessMeanBps": 31.9,
+          "excessMedianBps": 40.6
+        }
+      }
+    },
+    "basis-entry: passed": {
+      "episodes": 29,
+      "forward": {
+        "1h": {
+          "measured": 29,
+          "meanBps": 7.2,
+          "medianBps": -61.9,
+          "positiveShare": 0.207,
+          "excessMeanBps": -27.9,
+          "excessMedianBps": -32.1
+        },
+        "6h": {
+          "measured": 29,
+          "meanBps": 37.1,
+          "medianBps": -28.2,
+          "positiveShare": 0.379,
+          "excessMeanBps": -75.8,
+          "excessMedianBps": 24.2
+        },
+        "24h": {
+          "measured": 28,
+          "meanBps": 201.4,
+          "medianBps": 181.9,
+          "positiveShare": 0.714,
+          "excessMeanBps": 111.2,
+          "excessMedianBps": 105.7
+        }
+      }
+    },
+    "basis-entry: reference-sane": {
+      "episodes": 8,
+      "forward": {
+        "1h": {
+          "measured": 8,
+          "meanBps": 35.2,
+          "medianBps": -79.8,
+          "positiveShare": 0.125,
+          "excessMeanBps": 42.9,
+          "excessMedianBps": -79.8
+        },
+        "6h": {
+          "measured": 8,
+          "meanBps": -61.2,
+          "medianBps": -79.8,
+          "positiveShare": 0.125,
+          "excessMeanBps": -73,
+          "excessMedianBps": -69.3
+        },
+        "24h": {
+          "measured": 8,
+          "meanBps": 107.3,
+          "medianBps": 10.4,
+          "positiveShare": 0.5,
+          "excessMeanBps": 235.9,
+          "excessMedianBps": 90.4
+        }
+      }
+    },
+    "basis-entry: twap-floor": {
+      "episodes": 2,
+      "forward": {
+        "1h": {
+          "measured": 2,
+          "meanBps": 444.7,
+          "medianBps": 444.7,
+          "positiveShare": 1,
+          "excessMeanBps": 296.8,
+          "excessMedianBps": 296.8
+        },
+        "6h": {
+          "measured": 2,
+          "meanBps": 370.8,
+          "medianBps": 370.8,
+          "positiveShare": 0.5,
+          "excessMeanBps": 317.8,
+          "excessMedianBps": 317.8
+        },
+        "24h": {
+          "measured": 2,
+          "meanBps": 411.3,
+          "medianBps": 411.3,
+          "positiveShare": 0.5,
+          "excessMeanBps": 314,
+          "excessMedianBps": 314
+        }
+      }
+    }
+  }
+}

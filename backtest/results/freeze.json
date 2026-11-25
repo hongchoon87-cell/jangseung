@@ -1,0 +1,30 @@
+{
+  "frozenAt": "2026-11-24T12:03:11Z",
+  "codeSha256": "4f3a86caa2e9f431002d02da7091f941b86096f1a99d023206a8f3b702b1a8c5",
+  "basedOn": "backtest/results/development/index.json, generated 2026-11-24T12:03:03Z with this code",
+  "rule": "Written before the report period (2026-09-01 to 2026-11-23) was run for the first time. That period is run once, with this code and every experiment in run.ts unchanged. Nothing is retuned after seeing it.",
+  "chosenConfiguration": {
+    "experiment": "basis-only",
+    "what": "The gap rules only (buy when HSKSwap trades below the exchange consensus by more than the round-trip cost), through the gate, with rule-based sizing. Trend rules switched off. Thresholds, vault policy and owner limits unchanged from the defaults written on 2026-11-24 before any history was downloaded.",
+    "why": [
+      "On development, trend buys lost money at every horizon measured: the 121 episodes the gate refused for cost returned -59 bps on average after 24 hours, and -58 bps after subtracting the exchange's own move.",
+      "The trend exit closed gap positions before the gap had closed: 9 such exits averaged -44 bps, against +220 bps for the 7 positions that reached their target.",
+      "Gap buys the gate passed beat the exchange's own move by 94 bps on average after 24 hours (40 episodes); those it refused for too small an edge beat it by 24 bps (29 episodes)."
+    ]
+  },
+  "changesMadeDuringDevelopment": [
+    "Positions are now built only up to half of what one sale can take out of the pool inside the vault's slippage limit, and a sale that does not fit is split. Before this, a position at the vault's 30% cap could not be sold in the shallow pool and sat for days; its result was luck.",
+    "The simulator carries our own price impact forward until the next recorded swap. Before this, several buys in a quiet pool were each priced as if the others had not happened.",
+    "The simulator assumes the pool's oracle had been enlarged before the vault listed it. As recorded (one slot until 2026-10-26) every vault buy would have reverted."
+  ],
+  "knownBeforehandAboutTheReportPeriod": [
+    "The whole history was inspected for data quality before any strategy result existed. That showed the pool's liquidity was withdrawn on 2026-10-10 07:57 UTC and returned on 2026-10-16 03:48 UTC, and that the oracle was enlarged on 2026-10-26 and 2026-10-31. No price or signal statistics of the report period were looked at."
+  ],
+  "expectations": [
+    "`gate` ends above `rule`.",
+    "`basis-only` ends at or above `sizing`.",
+    "`trend-only` ends near zero and `aggressive` ends below `sizing`.",
+    "While the pool is empty (2026-10-10 to 2026-10-16) no trade executes; a position held going in stays open and cannot be stopped out.",
+    "Returns are within a few percent of zero either way and each configuration closes at most a few dozen positions, so no claim of statistical significance will be made in either direction."
+  ]
+}

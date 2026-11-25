@@ -1,0 +1,23 @@
+{
+  "chainId": 133,
+  "vault": "0xd5bfcD4523E8adDDD63d1b7A0a1F1352f56F768F",
+  "owner": "0xfaddE8aaaeEEce74b224eB4AD7DC2EAca3E1fe64",
+  "agent": "0x84B264304C35b87c28eD2aD07555A0a04d17Bbf9",
+  "assets": [
+    "WHSK"
+  ],
+  "policy": {
+    "maxTradeBps": 1000,
+    "maxPositionBps": 3000,
+    "maxExposureBps": 6000,
+    "maxSlippageBps": 100,
+    "stopLossBps": 500,
+    "maxDrawdownBps": 1000,
+    "maxTradesPerDay": 12,
+    "cooldown": 300,
+    "twapWindow": 300,
+    "reentryLockout": 3600
+  },
+  "stage": "listed",
+  "updatedAt": "2026-11-24T16:20:27.466Z"
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["es2023", "dom"],
+    "module": "node20",
+    "target": "es2023",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "types": ["node"],
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true
+  },
+  "include": ["hardhat.config.ts", "scripts", "agent", "backtest", "test"]
+}
