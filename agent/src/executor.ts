@@ -11,6 +11,22 @@ import type { Candidate, DecisionRecord, Execution, GateVerdict } from "./types.
 export const DRIFT_TOLERANCE_BPS = 30;
 
 /**
+ * Gas limit to send with, given the node's estimate.
+ *
+ * What a vault call costs depends on the time of the block it lands in. The TWAP lookup
+ * walks the pool's price history, about 28,000 gas, unless the newest entry is already
+ * older than the window. The node estimates for a block time ahead of the chain (12 seconds
+ * on the HSK testnet), so an estimate can come out for the cheap case while the transaction
+ * lands in the dear one. A take-profit sale reverted that way on 2026-11-25: out of gas at
+ * exactly its estimate of 193,359, in a block where the call needed 221,303.
+ *
+ * Gas that is not used is not charged, so the room costs nothing.
+ */
+export function gasLimitFor(estimate: bigint): bigint {
+  return (estimate * 3n) / 2n + 50_000n;
+}
+
+/**
  * The vault's permissionless safety functions. The amount passed to `triggerStopLoss` is
  * how much of the asset to sell; 0 lets the vault sell as much as the pool can take.
  */
@@ -93,11 +109,9 @@ export async function executeTrade(
     args: [asset.address, amountIn, minOut, memo],
   } as const;
 
+  const account = clients.account ?? operator;
   try {
-    const { request, result } = await clients.publicClient.simulateContract({
-      ...call,
-      account: clients.account ?? operator,
-    });
+    const { request, result } = await clients.publicClient.simulateContract({ ...call, account });
 
     if (config.dryRun || !clients.walletClient) {
       return candidate.side === "buy"
@@ -105,7 +119,8 @@ export async function executeTrade(
         : { status: "dry-run", baseAmount: result, assetAmount: amountIn };
     }
 
-    const txHash = await clients.walletClient.writeContract(request);
+    const gas = gasLimitFor(await clients.publicClient.estimateContractGas({ ...call, account }));
+    const txHash = await clients.walletClient.writeContract({ ...request, gas });
     const receipt = await clients.publicClient.waitForTransactionReceipt({ hash: txHash, timeout: 120_000 });
     if (receipt.status !== "success") {
       return { status: "failed", txHash, blockNumber: receipt.blockNumber, error: "transaction reverted" };
@@ -134,16 +149,15 @@ export async function runSafetyCall(
   operator: Address,
   call: SafetyCall,
 ): Promise<Execution> {
+  const account = clients.account ?? operator;
   try {
-    const { request } = await clients.publicClient.simulateContract({
-      address: vault,
-      abi: agentVaultAbi,
-      ...call,
-      account: clients.account ?? operator,
-    });
+    const { request } = await clients.publicClient.simulateContract({ address: vault, abi: agentVaultAbi, ...call, account });
     if (config.dryRun || !clients.walletClient) return { status: "dry-run" };
 
-    const txHash = await clients.walletClient.writeContract(request);
+    const gas = gasLimitFor(
+      await clients.publicClient.estimateContractGas({ address: vault, abi: agentVaultAbi, ...call, account }),
+    );
+    const txHash = await clients.walletClient.writeContract({ ...request, gas });
     const receipt = await clients.publicClient.waitForTransactionReceipt({ hash: txHash, timeout: 120_000 });
     if (receipt.status !== "success") return { status: "failed", txHash, error: "transaction reverted" };
 
