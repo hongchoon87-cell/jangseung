@@ -16,6 +16,7 @@
     "fork:setup": "hardhat run scripts/fork-setup.ts --network localhost",
     "fork:move": "hardhat run scripts/fork-move.ts --network localhost",
     "agent:new-key": "tsx scripts/new-agent-key.ts",
+    "agent:set-api-key": "tsx scripts/set-api-key.ts",
     "deploy:check": "hardhat run scripts/deploy-check.ts --network hsk",
     "deploy:hsk": "hardhat run scripts/deploy.ts --network hsk",
     "deploy:fork": "hardhat run scripts/deploy.ts --network localhost",
