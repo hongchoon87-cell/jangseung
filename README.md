@@ -7,6 +7,7 @@ is allowed to go. The AI proposes each trade; the vault contract enforces the tr
 position size, slippage, stop-loss and drawdown limits on-chain, whatever the AI says.
 
 Built for the HSK Chain Horizon Hackathon Seoul, Track 1 (AI Agent Trading).
+Demo video (3 min, a live run on the HSK testnet): https://www.youtube.com/watch?v=xZlqgqsSegQ
 A *jangseung* is the carved guardian post at the entrance of a Korean village.
 한국어 기획 문서: [docs/기획서.md](docs/기획서.md)
 

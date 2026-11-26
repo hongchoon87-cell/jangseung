@@ -27,6 +27,9 @@
 /docs/submission-description.md
 /docs/내부_메모.md
 
+# Demo video and the scripts that record it on this machine
+/demo-video
+
 # Editor and OS noise
 .DS_Store
 Thumbs.db
