@@ -1,0 +1,33 @@
+{
+  "frozenAt": "2026-11-26T02:08:49Z",
+  "codeSha256": "bcd4624cdfbca912df8e14f28bca73c253826f918f2c36b8b399af99a50d1d0f",
+  "rule": "Written before Claude's judgment was run on the report period (2026-09-01 to 2026-11-23) for the first time. The two experiments below are run with this code, and run.ts refuses to run them with any other. Nothing in the agent, the prompt or the backtest is changed after seeing their results. Repeats use the same code and differ only in the repeat number that is part of every stored answer's key.",
+  "experiments": {
+    "llm": "The rules with the gap and trend strategies (the live agent's defaults), the gate, and Claude as the judgment step in place of the rule-based sizing. Compared with `sizing`.",
+    "basis-only-llm": "The configuration chosen on the development period (gap rules only), the gate, and Claude as the judgment step in place of the rule-based sizing. Compared with `basis-only`."
+  },
+  "model": {
+    "id": "claude-opus-5-5",
+    "effort": "medium",
+    "thinking": "adaptive",
+    "maxTokens": 16000,
+    "timeoutMs": 120000,
+    "refusalFallback": "server-side, default",
+    "prompt": "agent/src/strategist.ts as of this code hash: the same prompt and input the live agent uses."
+  },
+  "whyReportOnly": "The model's training data runs to June 2026, which overlaps the development period (2026-04-22 to 2026-08-31). The report period is after it, so the model cannot know how HSK moved there.",
+  "budget": {
+    "capUsdTotal": 40,
+    "plan": "One run of each experiment first, with a $15 cap. Two repeats of each afterwards, within the rest of the total, once the first runs are checked for faults in the harness (failed calls, fallbacks, cost), not for the direction of the result."
+  },
+  "expectations": [
+    "Claude reduces or vetoes some entries that the rule-based sizing would have taken, so `llm` and `basis-only-llm` pay less in pool fees than `sizing` and `basis-only`.",
+    "In `llm`, Claude vetoes or reduces a larger share of trend entries than of gap entries.",
+    "Every run ends within a few percent of zero, and each experiment ends within about one percentage point of its rule-based counterpart.",
+    "With 13 and 18 round trips in the rule-based runs, no difference will be called significant in either direction. The repeats show how far the result moves between runs of the same experiment."
+  ],
+  "knownBeforehand": [
+    "The rule-based results of the report period were run on 2026-11-24: `sizing` -0.57%, `basis-only` -0.42%.",
+    "Claude's live judgments on the testnet on 2026-11-25: two gap buys cut to 40%, three exits approved."
+  ]
+}

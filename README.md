@@ -19,9 +19,9 @@ A *jangseung* is the carved guardian post at the entrance of a Korean village.
 | Agent pipeline (rules, gate, execution) | Written. 70 unit tests pass. Ran end to end on a local mainnet fork: buys, a stop-loss after a 10% sell-off, limits and settings. |
 | Testnet demo | **Deployed on the HSK Chain testnet on 2026-11-25**, source verified, keeper and agent running in live mode with test tokens. A fall we staged in the demo pool the same day left the agent's buy and the vault's stop-loss on-chain. Rehearsed first on a local fork of the testnet: demo market, vault, deposit, a buy, a staged 10% fall, the stop-loss. Addresses and transactions in [Run it on the HSK Chain testnet](#run-it-on-the-hsk-chain-testnet). |
 | Dashboard and chat | Written. Checked in a browser against the fork. |
-| Claude judgment and chat | **Run against the API on the testnet on 2026-11-25** with `claude-opus-5-5`: three judgments (a buy cut to 40% of the proposed size, two take-profit approvals) and four chat requests. See [Claude on the testnet](#claude-on-the-testnet-2026-11-25). The backtest has not been repeated with Claude in the loop. |
+| Claude judgment and chat | **Run against the API on the testnet on 2026-11-25** with `claude-opus-5-5`: three judgments (a buy cut to 40% of the proposed size, two take-profit approvals) and four chat requests. See [Claude on the testnet](#claude-on-the-testnet-2026-11-25). Backtested on the held-back period on 2026-11-26: it kept positions about half as large, which cut the loss of the chosen configuration from −0.42% to about −0.15% over three runs and made no difference on the live defaults. See [Claude as the judgment step](#claude-as-the-judgment-step). |
 | Mainnet deployment | **Not done; planned for after the results.** The submission runs on the testnet, which the hackathon Q&A accepts, and on 2026-11-25 the organisers answered that the mainnet deployment can follow once a project is among the winners. The deployment was rehearsed on a mainnet fork and the scripts are ready; the owner's wallet needs about 3 HSK for gas. |
-| Backtest with baselines | Done, 75 tests. **It does not show a profit**: +1.53% on the period used to choose the configuration, −0.42% on the period held back. Full write-up in [docs/백테스트_결과.md](docs/백테스트_결과.md) (Korean). |
+| Backtest with baselines | Done, 82 tests. **It does not show a profit**: +1.53% on the period used to choose the configuration, −0.42% on the period held back. Full write-up in [docs/백테스트_결과.md](docs/백테스트_결과.md) (Korean). |
 
 ## How it works
 
@@ -175,11 +175,42 @@ in this history the agent's own exits always came before the vault's stop-loss.
 What a contract cannot fix: if the pool's liquidity provider withdraws, nothing can be
 sold until liquidity returns, in parts or otherwise.
 
+### Claude as the judgment step
+
+On 2026-11-26 the judgment step was run with Claude (`claude-opus-5-5`, the same prompt
+and input as the live agent) in place of the rule-based sizing. It ran on the second
+period only: the model's training data runs to June 2026 and overlaps the first. What
+would be run and what was expected was written down beforehand
+(`backtest/results/freeze-llm.json`), and the runner refuses any other code. Each
+configuration ran three times, because the model's answers vary.
+
+| | Rule-based sizing | Claude, three runs |
+|---|---|---|
+| Gap rules only (chosen) | −0.42% | −0.12%, −0.17%, −0.15% |
+| Gap and trend rules (live defaults) | −0.57% | −0.53%, −0.57%, −0.48% |
+
+- **Claude kept positions small.** It took the first buy in most opportunities
+  (18 to 21 of 23 to 25), then refused most of the repeat buys the rules propose every
+  10 minutes while a gap stays open, citing a position already held on a gap that had not
+  closed. It never blocked a sale.
+- **That halved the pool fees** (9.83 to 4.69–5.23 USDT on the chosen configuration) and
+  the largest drawdown (0.84% to 0.36–0.44%). Profit per round trip barely changed, and
+  the trend buys it let through did worse than the rule's.
+- **No claim beyond that.** In a period where the strategy lost, smaller positions lose
+  less; whether the same caution would cost profit in a period like the first cannot be
+  tested with this model. One period and 11 to 19 round trips per run are too few to call
+  the difference significant.
+- Six runs made 886 judgments for $19.32, about $0.022 each, with no failed call. The
+  answers are stored with the results, so a run replays without the API and gives the
+  same numbers.
+
 ```bash
 npm run backtest -- development    # every experiment on the first period
 npm run backtest -- report         # the same on the second
 npm run backtest:check             # data quality; add "-- chain" to compare with the chain
 npm run backtest:fetch             # download the history again (block range is pinned)
+npm run backtest:claude -- report llm basis-only-llm --cap-usd 15   # Claude as the judgment
+#                                    step; costs money, replays stored answers for free
 ```
 
 ## Run it on a local fork
@@ -383,7 +414,7 @@ setting and the default policy.
 npm test               # contract unit tests against a mock DEX, and the testnet demo token
 npm run test:fork      # contract against real HSKSwap pools, mainnet forks pinned to fixed blocks
 npm run test:agent     # agent logic: signals, gate, sizing, settings, hashing
-npm run test:backtest  # pool replay, vault copy, no look-ahead, accounting
+npm run test:backtest  # pool replay, vault copy, no look-ahead, accounting, the Claude arm's cap and replay
 npm run typecheck
 ```
 
@@ -395,8 +426,9 @@ to 320,000 gas and a stop-loss sale about 223,000.
 
 - No profit is promised. The backtest shows none, and a few days of small live trades
   would not prove anything either.
-- What Claude's judgment adds to results is not measured: the backtest has not been
-  repeated with Claude in the loop, and three live judgments prove only that the step works.
+- Claude's judgment was backtested on one period only, because the model's training data
+  overlaps the other one, and over 11 to 19 round trips per run. What it changed there
+  was position size, not the choice of trades.
 - The strategy is long-only and unhedged, so it carries the direction of HSK's price.
 - If the pool's liquidity provider withdraws, a position cannot be sold until liquidity
   returns. It happened for six days in October 2026.

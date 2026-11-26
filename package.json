@@ -40,6 +40,7 @@
     "backtest:fetch": "tsx backtest/fetch.ts",
     "backtest:check": "tsx backtest/check.ts",
     "backtest": "tsx backtest/run.ts",
+    "backtest:claude": "tsx backtest/with-claude.ts",
     "test:backtest": "node --import tsx --test backtest/test/*.test.ts",
     "agent": "tsx agent/src/index.ts",
     "agent:fork": "tsx --env-file=.env.fork agent/src/index.ts",

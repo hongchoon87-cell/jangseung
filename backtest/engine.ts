@@ -7,7 +7,7 @@ import { effectivePrice, verify, type Quoter } from "../agent/src/gate.ts";
 import { bps } from "../agent/src/indicators.ts";
 import { priceFromSqrtX96, priceFromTick } from "../agent/src/market.ts";
 import { runTick, type Ports } from "../agent/src/pipeline.ts";
-import { ruleJudgment } from "../agent/src/strategist.ts";
+import { ruleJudgment, type JudgeInput } from "../agent/src/strategist.ts";
 import type {
   AssetMarket,
   Candidate,
@@ -32,8 +32,9 @@ import { SimVault, VaultRevert } from "./vault.ts";
  *   rule         every candidate that fits the owner's size and frequency limits is traded in full
  *   gate         as above, but only candidates the verification gate passes
  *   gate+sizing  as above, with the rule-based judgment scaling the size (the live default without an LLM)
+ *   gate+llm     as `gate`, with Claude as the judgment step (the live agent with an API key)
  */
-export type Arm = "rule" | "gate" | "gate+sizing";
+export type Arm = "rule" | "gate" | "gate+sizing" | "gate+llm";
 
 /** Gate checks that only mirror the owner's and the vault's limits. Every arm obeys these. */
 const LIMIT_CHECKS = new Set(["agent-active", "breaker", "asset-allowed", "frequency", "size-limits"]);
@@ -58,6 +59,8 @@ export interface RunOptions {
    * the owner acts.
    */
   resumeAfterHours?: number;
+  /** The judgment step of the `gate+llm` arm (see backtest/llm.ts). */
+  judge?: (input: JudgeInput) => Promise<Judgment>;
 }
 
 export interface EquityPoint {
@@ -277,6 +280,10 @@ export async function runBacktest(history: PoolReplay, reference: ReferenceHisto
       return blocked ? verdict : { ...verdict, ok: true };
     },
     async judge(input) {
+      if (arm === "gate+llm") {
+        if (!options.judge) throw new Error("The gate+llm arm needs a judge (see backtest/llm.ts).");
+        return options.judge(input);
+      }
       return arm === "gate+sizing" ? ruleJudgment(input) : fullSize;
     },
     async executeTrade(candidate, amountIn, gate): Promise<Execution> {
