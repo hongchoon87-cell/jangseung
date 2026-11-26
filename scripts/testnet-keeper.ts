@@ -22,7 +22,7 @@ if (!(intervalMs >= 1_000) || !(minBps >= 0)) throw new Error("KEEPER_SECONDS mu
 
 const market = await connectDemoMarket();
 const stamp = () => new Date().toISOString().slice(11, 19);
-console.log(`Keeper ${market.account.address} on the demo pool ${market.pool}`);
+console.log(`Keeper ${market.account.address} on the demo pool ${market.pool}, moving it once the gap reaches ${minBps} bps (a look every ${intervalMs / 1_000} s)`);
 
 /** The mainnet price the demo pool was last brought to. */
 let followed: bigint | undefined;
