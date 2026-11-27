@@ -20,7 +20,7 @@ A *jangseung* is the carved guardian post at the entrance of a Korean village.
 | Testnet demo | **Deployed on the HSK Chain testnet on 2026-11-25**, source verified, keeper and agent running in live mode with test tokens. A fall we staged in the demo pool the same day left the agent's buy and the vault's stop-loss on-chain. Rehearsed first on a local fork of the testnet: demo market, vault, deposit, a buy, a staged 10% fall, the stop-loss. Addresses and transactions in [Run it on the HSK Chain testnet](#run-it-on-the-hsk-chain-testnet). |
 | Dashboard and chat | Written. Checked in a browser against the fork. |
 | Claude judgment and chat | **Run against the API on the testnet on 2026-11-25** with `claude-opus-5-5`: three judgments (a buy cut to 40% of the proposed size, two take-profit approvals) and four chat requests. See [Claude on the testnet](#claude-on-the-testnet-2026-11-25). Backtested on the held-back period on 2026-11-26: it kept positions about half as large, which cut the loss of the chosen configuration from −0.42% to about −0.15% over three runs and made no difference on the live defaults. See [Claude as the judgment step](#claude-as-the-judgment-step). |
-| Mainnet deployment | **Not done; planned for after the results.** The submission runs on the testnet, which the hackathon Q&A accepts, and on 2026-11-25 the organisers answered that the mainnet deployment can follow once a project is among the winners. The deployment was rehearsed on a mainnet fork and the scripts are ready; the owner's wallet needs about 3 HSK for gas. |
+| Mainnet deployment | **Not done yet.** The submission runs on the testnet, which the hackathon accepts. Teams selected for the demo day must deploy to mainnet, as the organisers repeated in their AMA on 2026-11-27, and winners must deploy to claim a prize. If this project is selected, the vault goes to mainnet before the demo. The deployment was rehearsed on a mainnet fork and the scripts are ready; the owner's wallet needs about 3 HSK for gas. |
 | Backtest with baselines | Done, 82 tests. **It does not show a profit**: +1.53% on the period used to choose the configuration, −0.42% on the period held back. Full write-up in [docs/백테스트_결과.md](docs/백테스트_결과.md) (Korean). |
 
 ## How it works
@@ -375,9 +375,10 @@ nothing about profit: the only other trader in the demo pool is our own keeper.
 
 ## Deploy to HSK Chain mainnet
 
-Not done yet. The submission runs on the testnet, and the mainnet deployment is planned for
-after the results: the organisers answered on 2026-11-25 that it can follow once a project
-is among the winners. Everything below is ready for that step.
+Not done yet. The submission runs on the testnet. Teams selected for the demo day must
+deploy their contracts to mainnet, and winners must deploy to claim a prize, so if this
+project is selected the vault goes to mainnet before the demo. Everything below is ready
+for that step.
 
 Mainnet costs real money. Deploying needs HSK for gas in the owner's wallet: about 2.3 HSK
 at the current 500 gwei (4.5 million gas for the contract, 0.12 million to list WHSK),
@@ -454,6 +455,27 @@ to 320,000 gas and a stop-loss sale about 223,000.
   rejects a window the pools cannot serve; the owner can always exit regardless.
 - Rule and gate texts in the decision log are in English; the dashboard chrome is Korean
   and English.
+
+## Roadmap
+
+In order. Each step answers one of the limitations above.
+
+1. **Mainnet.** Deploy `AgentVault` to HSK Chain mainnet and verify its source with the
+   scripts in [Deploy to HSK Chain mainnet](#deploy-to-hsk-chain-mainnet). If the project
+   is selected for the demo day, this is done before the demo.
+2. **A record from the real market.** Run the agent from a small vault against the real
+   WHSK/USDT pool, so that the decision log, the refusals and the trades come from the
+   market itself instead of a demo pool that only our keeper moves.
+3. **Strategy on evidence.** The trend rules lost after costs in both backtest periods, so
+   they are reviewed before they trade real funds. Re-run the backtest as the pool's
+   history grows, and repeat the Claude comparison on periods after the model's training
+   data.
+4. **An external audit** of `AgentVault` before anyone but its owner deposits.
+5. **More assets, less direction.** List more assets as HSKSwap pools deepen, and limit the
+   long-only exposure, for example with a hedge once HSK Chain offers one.
+6. **The vault for other agents.** The limits live in the contract, not in our agent, so any
+   agent that trades for someone else can run behind the same vault. Package it with its
+   tests and deployment scripts for other builders.
 
 ## Layout
 
